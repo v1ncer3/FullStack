@@ -15,5 +15,8 @@ export default{
   <Footer />
 </template>
 
-<style scoped>
+<style>
+body{
+  margin: 0;
+}
 </style>

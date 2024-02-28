@@ -15,18 +15,19 @@ export default {
   <header class="headerList">
         <ButtonLogo />
         <ul v-for="item in menuList" :key="item">
-        <buttonMenuList :texto="item"/>
+            <buttonMenuList :texto="item"/>
         </ul>
     </header>
-    <hr>
 </template>
 
 <style scoped>
 .headerList{
+    margin: 0 0 30px 0;
     display: flex;
     justify-content: center;
     max-height: 150px;
-
-  background-color: #2a2c31;
+    box-shadow: 0px 2px 5px black;
+    background-color: #2a2c31;
+    border-radius: 0% 0% 10% 10%;
 }
 </style>

@@ -16,7 +16,7 @@ export default{
             if(img){
                 let lastImg = this.indexImage
                 let nextImg = this.indexImage+1
-                let existsNextImg = this.willNextImage(nextImg)
+                let existsNextImg = this.haveNextImage(nextImg)
                 if(existsNextImg){
                     img.src = img.src.replace(this.images[lastImg], this.images[nextImg])
                     this.indexImage++
@@ -28,7 +28,7 @@ export default{
                 }   
             }
         },
-        willNextImage(nextImg: number){
+        haveNextImage(nextImg: number){
             return this.images.length == nextImg ? false : true
         }
     }
@@ -37,9 +37,17 @@ export default{
 
 
 <template>
-    <button v-on:click="nextImage()"> <img id="imageToShow"  src= "../../assets/banner.jpg" width="480px" height="360px"> </button>
+    <button class="imgButton" v-on:click="nextImage()"><img id="imageToShow"  src= "../../assets/banner.jpg" width="480" height="480"></button>
 </template>
 
 <style>
+.imgButton{
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 480;
+    height: 480;
+}
 
 </style>
