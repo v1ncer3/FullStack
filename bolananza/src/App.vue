@@ -1,18 +1,14 @@
 <script lang="ts">
-import Header from './components/header/header.vue'
-import Content from './components/content/content.vue'
-import Footer from './components/footer/footer.vue'
+import  Comanda  from './components/Comanda.vue';
 
 //criar condicionais para as telas novas
 export default{
-  components: { Header, Content, Footer }
+  components: { Comanda }
 }
 </script>
 
 <template>
-  <Header />
-  <Content />
-  <Footer />
+  <Comanda />
 </template>
 
 <style>
