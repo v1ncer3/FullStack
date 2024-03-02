@@ -1,0 +1,32 @@
+/comanda
+	1 - comanda por mesa -> individual ou coletiva
+		excluir item - na propria row do item e quando a quantidade for igual a 0
+		adicionar quantidade - item - na propria row do item
+		remover quantidade - item - na propria row do item, se a quantidade for > 0
+		adicionar itens
+		fechar comanda
+
+	2 - coletiva -> dividir o valor igualmente entre todos
+		fechamento da comanda -> quantas vão pagar? pagamento dividido entre as pessoas? se sim, informar quantas pessoas será dividido e retornar o valor total / nº de pessoas
+		cancelamento da comanda -> só será possível se não existirem itens ou o valor == 0
+
+	3 - individual
+		-> botão para adicionar uma comanda nova
+		-> fechar comanda -> botão individual para cada comanda
+
+/estoque
+	/produtos
+		lista com os produtos -> estrutura[botao de excluir - nome do produto - quantidade no estoque - valor sugestivo] | informações do produto selecionado
+
+	/produtos/cadastro
+			adicionar
+
+	/produtos/:id
+			edição
+			exclusão
+
+	/produtos/lancamento
+	/produtos/retirada
+
+/agenda
+	lista dos proximos jogos
