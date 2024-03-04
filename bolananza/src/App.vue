@@ -1,18 +1,20 @@
 <script lang="ts">
-import  Comanda  from './components/Comanda.vue';
+import  Salao  from './components/Salao/Salao.vue';
 
 //criar condicionais para as telas novas
 export default{
-  components: { Comanda }
+  components: { Salao }
 }
 </script>
 
 <template>
-  <Comanda />
+  <Salao />
 </template>
 
 <style>
 body{
   margin: 0;
+  overflow: scroll; /* Show scrollbars */
 }
 </style>
+./components/Comandas/Comanda.vue
