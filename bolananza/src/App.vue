@@ -17,4 +17,3 @@ body{
   overflow: scroll; /* Show scrollbars */
 }
 </style>
-./components/Comandas/Comanda.vue
