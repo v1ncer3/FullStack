@@ -3,48 +3,51 @@
 export default{
     data(){
         return{
-            typeList: null
+            typeList: ''
         }
     },
     methods:{
-        changeList($e){
-            let value = $e.target.value;
-            switch (value){
-                case 'A':
-                    this.typeList = 'A';
-                    //todo: call select
-                    this.setStylesOnClick();
-                    console.log("Abertas");
-                    break;
-                case 'F':
-                    this.typeList = 'F';
-                    //todo: call select
-                    this.setStylesOnClick();
-                    console.log("Fechadas");
-                    break;
+        changeList(e: MouseEvent){
+            let value: String
+            if (e.target instanceof HTMLButtonElement){
+                value = e.target.value;
+                switch (value){
+                    case 'A':
+                        this.typeList = 'A';
+                        //todo: call select
+                        this.setStylesOnClick();
+                        console.log("Abertas");
+                        break;
+                    case 'F':
+                        this.typeList = 'F';
+                        //todo: call select
+                        this.setStylesOnClick();
+                        console.log("Fechadas");
+                        break;
+                }
             }
 
         },
         setStylesOnClick(){
-            let openedField = document.getElementById("Aberto");
-            let closedField = document.getElementById("Fechado");
+            let openedField = document.getElementById("Aberto") as HTMLButtonElement;
+            let closedField = document.getElementById("Fechado") as HTMLButtonElement;
 
             if(this.typeList == 'A'){
                 openedField.style.fontWeight = 'bold';
-                openedField.style.opacity  = 1.0;
+                openedField.style.opacity  = '1.0';
                 closedField.style.fontWeight = 'normal';
-                closedField.style.opacity  = 0.5;
+                closedField.style.opacity  = '0.5';
             }else{
                 closedField.style.fontWeight = 'bold';
-                closedField.style.opacity  = 1.0;
+                closedField.style.opacity  = '1.0';
                 openedField.style.fontWeight = 'normal';
-                openedField.style.opacity  = 0.5;
+                openedField.style.opacity  = '0.5';
             }
         },
         setDefaultStyles(){
-            let openedField = document.getElementById("Aberto");
+            let openedField = document.getElementById("Aberto") as HTMLButtonElement;
             openedField.style.fontWeight = 'bold';
-            openedField.style.opacity  = 1.0;
+            openedField.style.opacity  = '1.0';
             //todo: load list
         },
         addComanda(){
@@ -63,8 +66,9 @@ export default{
             <button class="identificador" id="Aberto" value="A" v-on:click="changeList($event)">Abertas</button> 
             <button class="identificador" id="Fechado" value="F" v-on:click="changeList($event)">Fechadas</button>
         </div>
-        <div  class="comanda-search">
-        </div>
+        <form  class="comanda-search">
+            <input type="text" id="buttom-search" name="search" placeholder="Pesquisar">
+        </form>
         <div  class="comanda-lista">
         </div>
         <div  class="comanda-adicionar">
@@ -76,8 +80,9 @@ export default{
 <style>
 .comandas{
     width: 20%;
-    height: max-content;
-    background-color: #FFEFE3;
+    height: 100vh;
+    background-color: #FFE7D5;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .comanda-identificadores{
@@ -106,21 +111,42 @@ export default{
     transition: 0.3s;
 }
 
-.comanda-adicionar{
+.comanda-search{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.buttom-search{
+    background-color: rgb(130, 130, 130);
+}
+
+.comanda-lista{
+    margin: 10px;
     background-color: #FFEFE3;
+    height: 75vh;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.comanda-adicionar{
+    flex-direction: row;
+    justify-content: end;
+    background-color: #FFE7D5;
     display: flex;
     border-color: transparent;
     border: transparent;
-    flex-direction: row-reverse;
+    padding: 0.4rem;
+    margin: 0.4rem;
 }
 
 .add-comanda{
-    background-color: #FFEFE3;
+    background-color: #FFE7D5;
     border: transparent;
     border-color: transparent;
     font-weight: bold;
-    width: 2rem;
-    height: 2rem;
+    width: 1.0rem;
+    height: 1.0rem;
+    border-radius: 5px 5px 5px 5px;
 }
 
 </style>
