@@ -1,10 +1,78 @@
 <script lang="ts">
 
+import Celula from './CelulaComandas.vue';
+import AdicionarComanda from './AdicionarComanda.vue';
+
 export default{
     data(){
         return{
-            typeList: '',
-            comandas: []
+            typeList: '' as String,
+            comandasAbertas: [
+                {
+                    "id": "1",
+                    "nome": "vinicius",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "500.00",
+                    "produtos":[
+                        {
+                            "id":"1",
+                            "nome": "coca-cola 2L",
+                            "valor": "7.40",
+                            "quantidade": "3"
+                        }
+                    ]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[
+                        {
+                            "id":"1",
+                            "nome": "coca-cola 2L",
+                            "valor": "7.40",
+                            "quantidade": "3"
+                        }
+                    ]
+                }
+            ],
+            comandasFechadas: [
+                
+                {
+                    "id": "3",
+                    "nome": "clarice",
+                    "comanda": "Individual",
+                    "data":"03/03/2024",
+                    "valor": "137.90",
+                    "produtos":[
+                        {
+                            "id":"1",
+                            "nome": "suco 2L",
+                            "valor": "9.00",
+                            "quantidade": "2"
+                        }
+                    ]
+                },
+                {
+                    "id": "4",
+                    "nome": "anderson",
+                    "comanda": "Individuo",
+                    "data":"01/03/2024",
+                    "valor": "150.00",
+                    "produtos":[
+                        {
+                            "id":"1",
+                            "nome": "guaraná 350ml",
+                            "valor": "7.40",
+                            "quantidade": "3"
+                        }
+                    ]
+                }
+
+            ]
         }
     },
     methods:{
@@ -51,47 +119,73 @@ export default{
             openedField.style.opacity  = '1.0';
             //todo: load list
         },
+        setDefaultValues(){
+            this.typeList = 'A'
+        },
         addComanda(){
+            
             console.log("comanda adicionada");
+        },
+        editComanda(infos_comanda: Object){
+            console.log(infos_comanda);
         },
         loadDataDefault(){
             console.log("loading data");
+        },
+        loadDataWithConditions(){
+            console.log("loading data With Conditions");
         }
     },
     mounted() {
         this.setDefaultStyles(),
-        this.loadDataDefault()
-
-    }
+        this.setDefaultValues()
+    },
+    components: { Celula, AdicionarComanda }
 }
 </script>
 
 <template>
     <div class="comandas">
         <div>
+                <!--Filtro-->
             <div class="comanda-identificadores">
                 <button class="identificador" id="Aberto" value="A" v-on:click="changeList($event)">Abertas</button> 
                 <button class="identificador" id="Fechado" value="F" v-on:click="changeList($event)">Fechadas</button>
             </div>
-            <form  class="comanda-search">
+                <!--Pesquisa-->
+            <form @submit.prevent="loadDataWithConditions()" class="comanda-search">
                 <input type="text" id="buttom-search" name="search" placeholder="Pesquisar">
+                <button class="fa fa-search" style="background:transparent; border:none; cursor: pointer" type="submit"></button>
             </form>
-            <div  class="comanda-lista" v-for="comanda in comandas">
-                Não há dados a serem listados.
+                <!--lista de comandas-->
+            <div  class="comanda-lista" v-if="comandasAbertas.length == 0 && comandasFechadas.length == 0">
+                <h5 class="celula-comanda">Não há dados a serem listados.</h5>
             </div>
+            <div  class="comanda-lista" v-else-if="typeList == 'A'">
+                <div  v-for="comanda in comandasAbertas" :key="comanda.id" v-on:click="editComanda(comanda)">
+                    <Celula :nome="comanda.nome"  :valor="comanda.valor" :comanda="comanda.comanda"/>
+                </div>
+            </div>
+            <div  class="comanda-lista" v-else-if="typeList == 'F'">
+                <div  v-for="comanda in comandasFechadas" :key="comanda.id">
+                    <Celula :nome="comanda.nome"  :valor="comanda.valor" :comanda="comanda.comanda"/>
+                </div>
+            </div>
+                <!--adicionar comandas-->
             <div  class="comanda-adicionar">
-                <button class="add-comanda" id="Aberto" value="+"  v-on:click="addComanda()">+</button> 
+                <AdicionarComanda />
             </div>
         </div>
     </div>
 </template>
-
 <style>
+
 .comandas{
     width: 20%;
     min-height: 90vh;
     background-color: #FFE7D5;
     border-radius: 10px 10px 10px 10px;
+    margin: 0px 0px 0px 10px;
 }
 
 .comanda-identificadores{
@@ -113,6 +207,7 @@ export default{
     color: black;
     padding: 3px;
     margin: 3px;
+    cursor: pointer;
 }
 
 .identificador:hover{
@@ -124,21 +219,26 @@ export default{
 .comanda-search{
     display: flex;
     justify-content: center;
+    margin: 5px 0px 5px 0px;
 }
 
 #buttom-search{
     background-color: rgb(255, 255, 255);
     border-color: transparent;
     box-shadow: 0px 0px 5px 0px black;
-    width: 100%;
+    width: 70%;
     padding: 0.8rem 0.8rem 0.8rem 0.8rem;
-    margin: 1.0rem;
+    margin: 0.5rem;
 }
 
 .comanda-lista{
     background-color: #FFEFE3;
     border-radius: 5px 5px 5px 5px;
     margin: 0.0rem 1.0rem 0.0rem 1.0rem;
+    min-height: 10%;
+    max-height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .comanda-adicionar{
@@ -148,19 +248,10 @@ export default{
     background-color: #FFE7D5;
     border-color: transparent;
     border: transparent;
-    padding: 0.0rem 0.2rem 0.0rem 0.0rem;
+    padding: 0.0rem 0.6rem 0.0rem 0.0rem;
     margin: 0.0rem;
-}
-
-.add-comanda{
-    background-color: #FFE7D5;
-    border: transparent;
-    border-color: transparent;
-    font-weight: normal;
-    font-size: 20px;
-    width: 2.0rem;
-    height: 2.0rem;
     border-radius: 10px 10px 10px 10px;
 }
+
 
 </style>

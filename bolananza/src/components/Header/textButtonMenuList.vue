@@ -17,14 +17,13 @@ export default{
 .textoButtonMenuList {
     display: inline-block;
     border-radius: 0.5rem;
-    min-width: 4.25rem;
+    min-width: 3.0rem;
     padding: 0.5rem;
     text-align: center;
     transition: 0.2s;
     color: var(--cinza);
     background: var(--cinza-claro);
-    font-weight: 400;
-
+    font-weight: bold;
 }
 
 </style>

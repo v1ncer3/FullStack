@@ -18,6 +18,7 @@ export default{
   <div class="salao">
     <ComandasLista />
     <ComandasAbertas />
+    
   </div>
 </template>
 

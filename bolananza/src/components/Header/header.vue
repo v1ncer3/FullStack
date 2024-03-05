@@ -25,10 +25,7 @@ export default {
     margin: 0 0 15px 0;
     display: flex;
     justify-content: center;
-    max-height: 150px;
     box-shadow: 0px 2px 2px rgb(73, 73, 73);
     background-color: #D9D9D9;
 }
-
-
 </style>
