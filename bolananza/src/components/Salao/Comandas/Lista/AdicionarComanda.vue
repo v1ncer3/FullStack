@@ -11,7 +11,11 @@ export default{
   methods:{
     closeModalBackdrop(){
       this.open = false;
-    }
+    },
+    addComanda(){ 
+        closeModalBackdrop(); 
+        console.log("comanda adicionada");
+    },
     
   }
 }
@@ -26,7 +30,7 @@ export default{
       </div>
       <div class="footer"> 
         <i v-on:click="closeModalBackdrop()" class="fa fa-close close" style="font-size:18px;color:red"> Cancelar</i>
-        <i v-on:click="closeModalBackdrop()" class="fa fa-check finish" style="font-size:20px"> Salvar</i>
+        <i v-on:click="addComanda()" class="fa fa-check finish" style="font-size:20px"> Salvar</i>
       </div>
     </div>
   </div>
