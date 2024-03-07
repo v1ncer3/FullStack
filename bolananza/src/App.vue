@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 import Header from '../src/components/Header/header.vue';
 import Footer from '../src/components/Footer/footer.vue';
@@ -17,6 +17,11 @@ export default{
 </template>
 
 <style>
+
+*{
+  font-family: 'Roboto', 'Times New Roman', Times, serif;
+}
+
 body{
   background-color: #D9D9D9;
   margin: 0;

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 export default{
     props: ["nome", "valor", "comanda"]
@@ -10,10 +10,10 @@ export default{
         <p class="row nome">
             {{ nome }}
         </p>
-        <p class="row">
-            {{ valor }}
+        <p class="row adicionais">
+            ${{ valor }}
         </p>
-        <p class="row">
+        <p class="row adicionais">
             {{ comanda }}
         </p>
     </div>
@@ -26,7 +26,7 @@ export default{
     justify-content: space-around;
     background-color: #F2B705;
     border-radius: 5px;  
-    margin: 15px;
+    margin: 10px;
     box-shadow: 0px 3px 5px 1px #00000025;
     overflow: hidden;
 }
@@ -40,5 +40,10 @@ export default{
 
 .nome{
     font-weight: bold;
+}
+
+.adicionais{
+    
+    font-size: 16px;
 }
 </style>
