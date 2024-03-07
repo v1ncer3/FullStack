@@ -20,6 +20,7 @@ export default{
 
 *{
   font-family: 'Roboto', 'Times New Roman', Times, serif;
+  
 }
 
 body{
@@ -27,4 +28,5 @@ body{
   margin: 0;
   overflow-y: scroll; /* Show scrollbars */
 }
+
 </style>
