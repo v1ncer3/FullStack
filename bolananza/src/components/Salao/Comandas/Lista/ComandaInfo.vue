@@ -33,7 +33,7 @@
         <div class="dados-itens" v-else-if="this.comandaSelecionada.produtos.length == 0">
             <h4>Não existem itens relacionados à comanda selecionada.</h4>        
         </div>
-        <div class="dados-actions">
+        <div class="dados-actions" v-if="this.comandaSelecionada && this.comandaSelecionada.produtos.length > 0">
             <button class="action-cancelar">Cancelar</button>
             <button class="action-fechar">Fechar</button>
         </div>

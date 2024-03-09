@@ -10,13 +10,8 @@ export default{
 </script>
 
 <template>
-  <!-- 
-    comandas
-    comanda-aberta
-  -->
   <div class="salao">
     <ComandasLista />
-    
   </div>
 </template>
 
