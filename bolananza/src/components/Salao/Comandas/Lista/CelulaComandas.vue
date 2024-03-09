@@ -24,26 +24,22 @@ export default{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #F2B705;
+    background-color: #B96D40;
     border-radius: 5px;  
-    margin: 10px;
+    margin: 5px;
     box-shadow: 0px 3px 5px 1px #00000025;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 .row{
-    width: 100%;
     display: flex;
     justify-content: center;  
     overflow: hidden;
-}
-
-.nome{
+    font-size: 12px;
     font-weight: bold;
+    width: 30%;
 }
 
-.adicionais{
-    
-    font-size: 16px;
-}
+
+
 </style>

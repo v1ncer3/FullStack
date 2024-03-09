@@ -1,20 +1,22 @@
+*{
+    font-size: 12px;
+}
 .comanda{
     display: flex;
     flex-direction: row;
-    width: 78%;
+    width: 100%;
     min-height: 90vh;
-    background-color: #FFE7D5;
-
-    border-radius: 10px 10px 10px 10px;
-    margin: 0px 0px 0px 10px;
+    background-color: #FFCF9C;
+    border-radius: 5px 5px 5px 5px;
+    margin: 0px 0px 0px 00px;
 }
 
 .config-comanda{
     display: flex;
     border-radius: 5px 5px 5px 5px;
     width: 50%;
-    margin: 20px;
-    background-color: #FFEFE3;
+    margin: 10px;
+    background-color: #FFCF9C;
     flex-direction: column;
     align-items: center;
 }
@@ -23,19 +25,20 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 55vh;
+    height: 70vh;
     overflow-y: scroll;
     overflow-x: none;
-    max-height: 60vh;
+    max-height: 70vh;
 }
 
 table{
     margin: 10px;
     width: 100%;
-    height: 20%;  
+    height: 10%;
 }
 
 thead, tbody{
+    max-height: 20%;
     box-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.281);
 }
 
@@ -45,39 +48,6 @@ td, th{
     border-style: hidden;
     padding: 15px;
     text-align: center;
-}
-
-.dados-itens-totais{
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 0px 0px 4px 0px;
-    margin: 20px;
-}
-
-.subtotal{
-    margin: 10px;
-    max-height: 10vh;
-    width: 50%;
-    max-width: 50%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.valorTotal{
-    margin: 10px;
-    max-height: 10vh;
-    max-width: 50%;
-    font-weight: bold;
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    
-}
-
-#total{
-    font-weight: bold;
 }
 
 .informativo-itens{
@@ -91,27 +61,33 @@ td, th{
 
 .dados-actions{
     min-height: 5vh;
-    width: 100%;
+    margin: 10px;
+    width: 70%;
     display: flex;
     justify-content: end;
+    flex-direction: column;
 }
 
 .action-cancelar{
-    background-color: #FF8888;
+    background-color: #CA054D;
+    border-color: #CA054D;
     border-radius: 5px;
     border-width: 1px;
-    border-color: #FF8888;
     font-weight: lighter;
-    margin: 10px 10px 10px 20px;
+    margin: 10px 10px 10px 10px;
     padding: 5px 10px 5px 10px;
 }
 
 .action-fechar{
-    background-color: #ABFF9D;
+    background-color: #A4D4B4;
+    border-color: #A4D4B4;
     border-radius: 5px;
     border-width: 1px;
-    border-color: #ABFF9D;
     font-weight: bold;
-    margin: 10px 20px 10px 10px;
+    margin: 10px 10px 10px 10px;
     padding: 5px 10px 5px 10px;
+}
+
+input{
+    width: 50%;
 }

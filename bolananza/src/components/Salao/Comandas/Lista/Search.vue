@@ -17,19 +17,14 @@ export default{
 }
 </script>
 
-<style>
-.comanda-search{
-    display: flex;
-    justify-content: center;
-    margin: 0.8rem 0.8rem 0.0rem 0.8rem;
+<style lang="scss" scoped>
+
+@media(max-width: 1023px) {
+    @import "./scss/SearchSmall.scss";
 }
 
-#buttom-search{
-    background-color: rgb(255, 255, 255);
-    border-color: transparent;
-    box-shadow: 0px 0px 5px 0px black;
-    width: 70%;
-    padding: 0.8rem 0.8rem 0.8rem 0.8rem;
-    margin: 0.5rem;
+@media(min-width: 1024px) {
+    @import "./scss/SearchLarge.scss";
 }
+
 </style>

@@ -90,7 +90,112 @@ export default{
                     "data":"05/03/2024",
                     "valor": "4050.00",
                     "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
+                },
+                {
+                    "id": "2",
+                    "nome": "angelina",
+                    "comanda": "Mesa",
+                    "data":"05/03/2024",
+                    "valor": "4050.00",
+                    "produtos":[]
                 }
+
             ],
             comandasFechadas: [
                 
@@ -136,6 +241,10 @@ export default{
         setComandaSelecionada(selecionada){
             this.comandaSelecionada = selecionada
         },
+        setTypeList(type){
+            this.typeList = type;
+            this.comandaSelecionada = ''
+        },
         loadDataDefault(){
             console.log("loading data");
         },
@@ -147,26 +256,25 @@ export default{
         this.setDefaultValues()
     },
     components: { FiltroComanda, ComandaFiltrada },
-    emits:[ 'selecionada' ]
+    emits:[ 'selecionada',  'filtro']
     
 }
 </script>
 
 <template>
     <div class="widget">
-        <FiltroComanda @selecionada="setComandaSelecionada($event)" :typeList="typeList" :comandasAbertas="comandasAbertas" :comandasFechadas="comandasFechadas"/>
+        <FiltroComanda @filtro="setTypeList($event)" @selecionada="setComandaSelecionada($event)" :typeList="typeList" :comandasAbertas="comandasAbertas" :comandasFechadas="comandasFechadas"/>
         <ComandaFiltrada :comandaSelecionada="this.comandaSelecionada"/>
     </div>
 </template>
 
-<style>
-
-.widget{
-    display: flex;
-    flex-direction: row;
+<style lang="scss" scoped>
+@media(max-width: 1023px) {
+    @import "./scss/ComandasSmall.scss";
 }
 
-.titulo{
-    margin: 2rem;
+@media(min-width: 1024px) {
+    @import "./scss/ComandasLarge.scss";
 }
+
 </style>

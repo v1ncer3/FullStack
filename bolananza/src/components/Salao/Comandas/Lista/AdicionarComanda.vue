@@ -29,7 +29,7 @@ export default{
         <p>Nome:  <label for="nome"></label><input type="text" id="nome" name="nome"><br></p>
       </div>
       <div class="footer"> 
-        <i v-on:click="closeModalBackdrop()" class="fa fa-close close" style="font-size:18px;color:red"> Cancelar</i>
+        <i v-on:click="closeModalBackdrop()" class="fa fa-close close" style="font-size:18px;color:#CA054D"> Cancelar</i>
         <i v-on:click="addComanda()" class="fa fa-check finish" style="font-size:20px"> Salvar</i>
       </div>
     </div>
@@ -39,14 +39,14 @@ export default{
 <style scoped>
 
 .add-comanda{
-  background-color: #FFE7D5;
+  background-color: transparent;
   font-weight: normal;
   font-size: 20px;
   width: 2.0rem;
   height: 2.0rem;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 5px 5px 5px 5px;
   cursor: pointer;
-  border: 1px;
+  border: transparent;
   border-color: black;
 }
 
@@ -70,7 +70,7 @@ export default{
   width: auto;
   height: auto;
   border-radius: 10px 10px 10px 10px;
-  background-color: #FFE7D5;
+  background-color: #FFCF9C;
   margin: 0px 0px 0px 10px;
   animation-name: gota;
   animation-duration: 0.4s;
@@ -116,7 +116,7 @@ input{
 .finish{
   background-color: transparent;
   border-color: transparent;
-  color: black;
+  color: #A4D4B4;;
   font-weight: normal;
   cursor:pointer;
 }

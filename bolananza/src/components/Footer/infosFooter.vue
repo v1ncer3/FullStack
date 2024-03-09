@@ -4,7 +4,8 @@ export default{
     data(){
         return {
             listaInfos: ['Endereço: Rua Rio de Janeiro, 115. Bonanza/SL-MG',
-                        'Telefone - (31) xxxxx - xxxx',
+                        'Contatos: +55 (31) 988502757 (Vinicius) / +55 (31) 988502757 (Clarice)',
+                        '          ',
                         'Redes Sociais']
         }
     }
@@ -15,7 +16,7 @@ export default{
     <div class="footer_infos">
     <div class = 'paddingFooter'>
         <ul v-for="info in listaInfos" :key="info">
-            <h4 v-if="info == 'Redes Sociais'">{{ info }} <a href="https://www.instagram.com/bolananza?igsh=ZHY5MWRzZ25mc3pl"><i class="fa fa-instagram" style="font-size:16px; color:black; text-decoration: none;"></i></a></h4>
+            <h4 v-if="info == 'Redes Sociais'">{{ info }} <a href="https://www.instagram.com/bolananza?igsh=ZHY5MWRzZ25mc3pl"><i class="fa fa-instagram" style="font-size:16px; color:white; text-decoration: none;"></i></a></h4>
             <h4 v-else>{{ info }} </h4>
         </ul>
         

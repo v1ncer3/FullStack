@@ -1,0 +1,27 @@
+*{
+    font-size: 12px;
+}
+
+h1{
+    font-size: 20px;
+    margin: 30px 30px 10px 60px;
+}
+.comandas{
+    width: 100%;
+    background-color: #FFCF9C;
+    border-radius: 5px 5px 5px 5px;
+    margin: 0px 0px 30px 0px;
+}
+
+
+.comanda-adicionar{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    background-color: #FFCF9C;
+    border-color: transparent;
+    border: transparent;
+    padding: 0.0rem 0.6rem 0.0rem 0.0rem;
+    margin: 0.0rem;
+    border-radius: 5px 5px 5px 5px;
+}

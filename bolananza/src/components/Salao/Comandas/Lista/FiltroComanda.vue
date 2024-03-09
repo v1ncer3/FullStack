@@ -3,12 +3,12 @@
             <div>
                 <Titulo />
                     <!--Filtro-->
-                <Filtro @Filtro="this.typeList=$event"/>
+                <Filtro @filtro="this.$emit('filtro', $event)"/>
                     <!--Pesquisa-->
                 <Search @Pesquisa="consultaPersonalizada($event)"/>
                     <!--lista de comandas-->
                 <Lista v-if="this.typeList=='A'" :listaComandas="this.comandasAbertas" @selecionada="this.$emit('selecionada', $event)" />
-                <Lista v-else-if="this.typeList=='F'" :listaComandas="this.comandasFechadas"/>
+                <Lista v-else-if="this.typeList=='F'" :listaComandas="this.comandasFechadas" @selecionada="this.$emit('selecionada', $event)"/>
                     <!--adicionar comandas-->
                 <div  class="comanda-adicionar">
                     <AdicionarComanda />
@@ -31,31 +31,22 @@ export default{
         consultaPersonalizada(string){
             console.log(string);
         },
+        changeTypeList(string){
+            this.typeList = string;
+        }
     },
-    emits:[ 'Filtro', 'Pesquisa', ]
+    emits:[ 'filtro', 'Pesquisa', 'selecionada']
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
-.comandas{
-    width: 20%;
-    min-height: 90vh;
-    background-color: #FFE7D5;
-    border-radius: 10px 10px 10px 10px;
-    margin: 0px 0px 0px 10px;
+@media(max-width: 1023px) {
+    @import "./scss/FiltroComandaSmall.scss";
 }
 
-
-.comanda-adicionar{
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    background-color: #FFE7D5;
-    border-color: transparent;
-    border: transparent;
-    padding: 0.0rem 0.6rem 0.0rem 0.0rem;
-    margin: 0.0rem;
-    border-radius: 10px 10px 10px 10px;
+@media(min-width: 1024px) {
+    @import "./scss/FiltroComandaLarge.scss";
 }
+
 </style>

@@ -10,6 +10,9 @@ export default{
     methods:{
         setDefaultStyles(){
             let openedField = document.getElementById("Aberto") ;
+            if(!openedField){
+                return;
+            }
             openedField.style.fontWeight = 'bold';
             openedField.style.opacity  = '1.0';
             //todo: load list
@@ -17,7 +20,9 @@ export default{
         setStylesOnClick(){
             let openedField = document.getElementById("Aberto");
             let closedField = document.getElementById("Fechado");
-
+            if(!openedField || !closedField){
+                return;
+            }
             if(this.typeList == 'A'){
                 openedField.style.fontWeight = 'bold';
                 openedField.style.opacity  = '1.0';
@@ -39,15 +44,13 @@ export default{
                         this.typeList = 'A';
                         //todo: call select
                         this.setStylesOnClick();
-                        this.$emit('Filtro', 'A');
-                        console.log("Abertas");
+                        this.$emit('filtro', 'A');
                         break;
                     case 'F':
                         this.typeList = 'F';
                         //todo: call select
                         this.setStylesOnClick();
-                        this.$emit('Filtro', 'F')
-                        console.log("Fechadas");
+                        this.$emit('filtro', 'F');
                         break;
                 }
             }
@@ -56,38 +59,18 @@ export default{
     mounted(){
         this.setDefaultStyles()
     },
-    emits:[ 'Filtro' ]
+    emits:[ 'filtro' ]
 }
 </script>
 
-<style>
-.comanda-identificadores{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin: 0.8rem 0.8rem 0.0rem 0.8rem;
+<style lang="scss" scoped>
+
+@media(max-width: 1023px) {
+    @import "./scss/FiltroSmall.scss";
 }
 
-.identificador{
-    width:50%;
-    background-color: #F2B705;
-    opacity: 0.6;
-    border-color: transparent;
-    border: transparent;
-    text-align: center;
-    border-radius: 5px;
-    font-size: 13px;
-    color: black;
-    padding: 3px;
-    margin: 3px;
-    cursor: pointer;
+@media(min-width: 1024px) {
+    @import "./scss/FiltroLarge.scss";
 }
-
-.identificador:hover{
-    font-weight: bold;
-    opacity: 1.0;
-    transition: 0.3s;
-}
-
 
 </style>

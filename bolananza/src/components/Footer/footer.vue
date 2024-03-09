@@ -18,8 +18,8 @@ export default{
 
 <style>
 .footer{
-    background-color: #D9D9D9;
-    color: black;
+    background-color: #141414;
+    color: white;
     display: block;
     font-weight: 400;
     margin: 30px 0 0 0;

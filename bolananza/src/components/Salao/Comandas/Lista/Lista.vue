@@ -12,32 +12,12 @@
 <script>
 
 import Celula from './CelulaComandas.vue'
+
 export default{
     props:['listaComandas'],
     methods:{
         selecionarComanda(infos_comanda){
             this.$emit('selecionada', infos_comanda);  
-        },
-        zeraDesconto(){
-            document.getElementById("desconto").value = 0;
-        },
-        calculaSubtotal({ produtos }){
-            let subTotal = 0.00;
-            if(!produtos){
-                return subTotal;
-            }
-            produtos.forEach(produto => {
-                subTotal += parseFloat(produto.valor);
-            });
-            document.getElementById("subtotal").value = subTotal;
-            return subTotal;
-        },
-        calcularTotal(){
-            let desconto = document.getElementById("desconto");
-            let subtotal = document.getElementById("subtotal");
-            let total = parseFloat(subtotal.value) - parseFloat(desconto.value);
-            document.getElementById("total").value = total;
-            return total;
         },
     },
     components:{ Celula },
@@ -45,14 +25,14 @@ export default{
 }
 </script>
 
-<style>
-.comanda-lista{
-    background-color: #FFEFE3;
-    border-radius: 5px 5px 5px 5px;
-    margin: 0.0rem 1.0rem 0.0rem 1.0rem;
-    min-height: 10%;
-    max-height: 75vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
+<style lang="scss" scoped>
+
+@media(max-width: 1023px) {
+    @import "./scss/ListaSmall.scss";
 }
+
+@media(min-width: 1024px) {
+    @import "./scss/ListaLarge.scss";
+}
+
 </style>
