@@ -1,24 +1,26 @@
 <template>
-
-    <!--
-widget com lista dos produtos já informados;
-widget com opçoes de cadastro de um novo produto
-
-    ListaProdutos
-    CadastroProdutos
-    -->
-    <div class="estoque">
-        <ListaProdutos class="subWidgets"/>
+    <div class="estoque" >
+        <ListaProdutos class="subWidgets" :class="{ produtoAtivo }" @widgetProdutoAtivo="setwidgetProdutoAtivo($event)"/>
+        <ProdutosAtivo class="subWidgets"/> não usar a mesma subclass, cria-lo escondido
     </div>
 </template>
 
 <script>
 import ListaProdutos from '../components/Estoque/ListaProdutos.vue'
-import CadastroProdutos from '../components/Estoque/CadastroProdutos.vue'
+import ProdutosAtivo from '../components/Estoque/ProdutosAtivo.vue'
 
 export default{
-
-    components:{ ListaProdutos, CadastroProdutos }
+    data(){
+        return{
+            produtoAtivo: false,
+        }
+    },
+    methods:{
+        setwidgetProdutoAtivo($event){
+            this.produtoAtivo = $event;
+        }
+    },
+    components:{ ListaProdutos, ProdutosAtivo }
 
 }
 

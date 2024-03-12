@@ -11,7 +11,10 @@
                         <th>Nome</th>
                         <th>Quantidade</th>
                         <th>Valor</th>
-                        <th></th>
+                        <th>Novo lote</th>
+                        <th>Editar</th>
+                        <th>Ajustar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody v-for="(produto, index) in produtos">
@@ -20,7 +23,10 @@
                         <td>{{ produto.nome }}</td>
                         <td>{{ produto.quantidade }}</td>
                         <td>{{ produto.valor }}</td>
-                        <td><i class="fa fa-plus" aria-hidden="true" v-on:click="insereProdutoComanda(produto.id)"></i></td>
+                        <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto.id)"></i></td>
+                        <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto.id)"></i></td>
+                        <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto.id)"></i></td>
+                        <td><i class="fa fa-trash-o" aria-hidden="true" v-on:click="deletaProdutoEstoque(produto.id)"></i></td>
                     </tr>
                 </tbody>
             </table>
@@ -112,10 +118,24 @@ export default{
         }
     },
     methods:{
-        insereProdutoComanda(idproduto){
-            console.log("produto inserido " + idproduto)
+        novoEstoque(id){
+            this.$emit('widgetProdutoAtivo', true);
+            console.log("novo estoque do produto cadastrado, id " + id);
+        },
+        editaProdutoEstoque(id){
+            this.$emit('widgetProdutoAtivo', true);
+            console.log("estoque editado do produto, id " + id);
+        },
+        ajustaProdutoEstoque(id){
+            this.$emit('widgetProdutoAtivo', true);
+            console.log("estoque ajustado do produto, id " + id);
+        },
+        deletaProdutoEstoque(id){
+            this.$emit('widgetProdutoAtivo', true);
+            console.log("produto deletado do estoque, id " + id);
         }
-    }
+    },
+    emits: [ 'widgetProdutoAtivo' ]
 }
 </script>
 

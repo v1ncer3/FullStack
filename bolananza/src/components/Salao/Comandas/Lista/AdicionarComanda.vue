@@ -80,7 +80,7 @@ export default{
   0%   {left:20%; top:40%; opacity: 0;}
   50%  {left:40%; top:40%; opacity: 1;}
   65%  {left:35%; top:40%; opacity: 1;}
-  75% {left:40%; top:40%; opacity: 1;}
+  75%  {left:40%; top:40%; opacity: 1;}
   85%  {left:38%; top:40%; opacity: 1;}
   100% {left:40%; top:40%; opacity: 1;}
 }
