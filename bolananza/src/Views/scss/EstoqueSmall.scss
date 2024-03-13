@@ -11,3 +11,14 @@
     width: 100%;
     margin: 0px 10px 0px 10px;
 }
+
+.subWidgets.produtoAtivo{
+    animation-name: reduzirWidget;
+    animation-duration: 0.5s;
+    width: 25%;
+}
+
+@keyframes reduzirWidget{
+    0%   {width: 100%;}
+    100% {width: 25%;}
+}

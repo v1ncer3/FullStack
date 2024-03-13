@@ -119,19 +119,19 @@ export default{
     },
     methods:{
         novoEstoque(id){
-            this.$emit('widgetProdutoAtivo', true);
+            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Lote'});
             console.log("novo estoque do produto cadastrado, id " + id);
         },
         editaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', true);
+            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Editar'});
             console.log("estoque editado do produto, id " + id);
         },
         ajustaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', true);
+            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Ajustar'});
             console.log("estoque ajustado do produto, id " + id);
         },
         deletaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', true);
+            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Excluir'});
             console.log("produto deletado do estoque, id " + id);
         }
     },

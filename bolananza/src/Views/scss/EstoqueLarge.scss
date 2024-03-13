@@ -7,18 +7,36 @@
     flex-direction: row;
 }
 
-.subWidgets{
+.lista{
     width: 100%;
     margin: 0px 10px 0px 10px;
 }
 
-.subWidgets.produtoAtivo{
+.lista.produtoAtivo{
     animation-name: reduzirWidget;
-    animation-duration: 0.5s;
-    width: 50%;
+    animation-duration: 0.7s;
+    width: 65%;
 }
 
 @keyframes reduzirWidget{
     0%   {width: 100%;}
-    100% {width: 50%;}
+    100% {width: 65%;}
+}
+
+
+.modal{
+    display: none;
+}
+
+.modal.produtoAtivo{
+    display:block;
+    animation-name: aumentarWidget;
+    animation-duration: 0.7s;
+    width: 35%;
+    margin: 0px 10px 0px 10px;
+}
+
+@keyframes aumentarWidget{
+    0%   {width: 1%;}
+    100% {width: 35%;}
 }
