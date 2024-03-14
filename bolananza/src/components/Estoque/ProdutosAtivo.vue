@@ -35,8 +35,12 @@
                 <input type="number" id="quantidade" v-model.number="produto.quantidade" required>
                 </div>
                 <div>
-                <label for="valor">Valor:</label>
-                <input type="number" id="valor" v-model.number="produto.valor" required>
+                <label for="valor">Valor de compra:</label>
+                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorCompra" required>
+                </div>
+                <div>
+                <label for="valor">Valor de venda:</label>
+                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorVenda" required>
                 </div>
                 <button type="submit" id="salvar">Salvar</button>
                 <button type="submit" id="excluir" hidden>Excluir</button>
@@ -57,8 +61,12 @@
                 <input type="number" id="quantidade" min="0" v-model.number="this.ProdutoEditado.quantidade" required>
                 </div>
                 <div>
-                <label for="valor">Valor:</label>
-                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valor" required>
+                <label for="valor">Valor de compra:</label>
+                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorCompra" required>
+                </div>
+                <div>
+                <label for="valor">Valor de venda:</label>
+                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorVenda" required>
                 </div>
                 <button type="submit" id="salvar">Salvar</button>
                 <button type="submit" id="excluir" hidden>Excluir</button>

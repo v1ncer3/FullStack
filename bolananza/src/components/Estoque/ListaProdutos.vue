@@ -46,75 +46,11 @@ export default{
                         {
                             "id":"1",
                             "nome": "coca-cola 2L",
-                            "valor": "7.40",
+                            "valorVenda": "17.40",
+                            "valorCompra": "9.40",
                             "quantidade": "3"
                         },
-                        {
-                            "id":"2",
-                            "nome": "guarana 2L",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"3",
-                            "nome": "sucrilhos",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"4",
-                            "nome": "bananinha",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"5",
-                            "nome": "chocolate",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"6",
-                            "nome": "mousse",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"7",
-                            "nome": "torta",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"8",
-                            "nome": "skol",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"9",
-                            "nome": "heinekein",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"9",
-                            "nome": "heinekein",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"9",
-                            "nome": "heinekein",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        },
-                        {
-                            "id":"9",
-                            "nome": "heinekein",
-                            "valor": "8.0",
-                            "quantidade": "13"
-                        }
+                        
                     ]
         }
     },
