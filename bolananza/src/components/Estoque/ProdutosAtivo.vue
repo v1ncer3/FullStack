@@ -24,7 +24,7 @@
             <form @submit.prevent="submitForm">
                 <div>
                 <label for="identificador">Código:</label>
-                <input type="number" id="identificador" v-model="produto.identificador" required>
+                <input type="number" id="identificador" v-model="produto.id" required>
                 </div>
                 <div>
                 <label for="nome">Nome:</label>
@@ -36,11 +36,11 @@
                 </div>
                 <div>
                 <label for="valor">Valor de compra:</label>
-                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorCompra" required>
+                <input type="number" id="valorCompra" min="0"  v-model.number="produto.valorCompra" required>
                 </div>
                 <div>
                 <label for="valor">Valor de venda:</label>
-                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorVenda" required>
+                <input type="number" id="valorVenda" min="0"  v-model.number="produto.valorVenda" required>
                 </div>
                 <button type="submit" id="salvar">Salvar</button>
                 <button type="submit" id="excluir" hidden>Excluir</button>
@@ -62,11 +62,11 @@
                 </div>
                 <div>
                 <label for="valor">Valor de compra:</label>
-                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorCompra" required>
+                <input type="number" id="valorCompra" min="0.0" step="any" v-model.number="this.ProdutoEditado.valorCompra" required>
                 </div>
                 <div>
                 <label for="valor">Valor de venda:</label>
-                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valorVenda" required>
+                <input type="number" id="valorVenda" min="0.0" step="any" v-model.number="this.ProdutoEditado.valorVenda" required>
                 </div>
                 <button type="submit" id="salvar">Salvar</button>
                 <button type="submit" id="excluir" hidden>Excluir</button>
@@ -84,7 +84,8 @@
                     id: 0,
                     nome: '',
                     quantidade: 0,
-                    valor: 0,
+                    valorCompra: 0,
+                    valorVenda:0,
                 },
             }
         },
@@ -120,10 +121,11 @@
             setReadOnly(tipoFormulario){
                 switch(tipoFormulario){
                     case 'Cadastro':
-                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('identificador').readOnly = true;
                         document.getElementById('nome').readOnly = false;
                         document.getElementById('quantidade').readOnly = false;
-                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('valorCompra').readOnly = false;
+                        document.getElementById('valorVenda').readOnly = false;
                         document.getElementById('excluir').hidden = true;
                         document.getElementById('salvar').hidden = false;
                         break;
@@ -131,23 +133,26 @@
                         document.getElementById('identificador').readOnly = true;
                         document.getElementById('nome').readOnly = true;
                         document.getElementById('quantidade').readOnly = false;
-                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('valorCompra').readOnly = false;
+                        document.getElementById('valorVenda').readOnly = false;
                         document.getElementById('excluir').hidden = true;
                         document.getElementById('salvar').hidden = false;
                         break;
                     case 'Editar':
-                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('identificador').readOnly = true;
                         document.getElementById('nome').readOnly = false;
                         document.getElementById('quantidade').readOnly = false;
-                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('valorCompra').readOnly = false;
+                        document.getElementById('valorVenda').readOnly = false;
                         document.getElementById('excluir').hidden = true;
                         document.getElementById('salvar').hidden = false;
                         break;
                     case 'Ajustar':
-                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('identificador').readOnly = true;
                         document.getElementById('nome').readOnly = false;
                         document.getElementById('quantidade').readOnly = false;
-                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('valorCompra').readOnly = false;
+                        document.getElementById('valorVenda').readOnly = false;
                         document.getElementById('excluir').hidden = true;
                         document.getElementById('salvar').hidden = false;
                         console.log('Ajustar');
@@ -156,7 +161,8 @@
                         document.getElementById('identificador').readOnly = true;
                         document.getElementById('nome').readOnly = true;
                         document.getElementById('quantidade').readOnly = true;
-                        document.getElementById('valor').readOnly = true;
+                        document.getElementById('valorCompra').readOnly = true;
+                        document.getElementById('valorVenda').readOnly = true;
                         document.getElementById('excluir').hidden = false;
                         document.getElementById('salvar').hidden = true;
                         console.log('Excluir');

@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="sendEmitSearch()" class="comanda-search">
-        <input type="text" id="buttom-search" name="search" placeholder="Comandas">
+        <input type="text" id="buttom-search" name="search" placeholder="Pesquisar">
         <button class="fa fa-search" style="background:transparent; border:none; cursor: pointer" type="submit"></button>
     </form>
 </template>

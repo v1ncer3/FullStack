@@ -9,6 +9,7 @@
 
 .lista{
     width: 100%;
+    height: 100%;
     margin: 0px 10px 0px 10px;
 }
 
@@ -16,11 +17,14 @@
     animation-name: reduzirWidget;
     animation-duration: 0.7s;
     width: 65%;
+    height: 100%;
 }
 
 @keyframes reduzirWidget{
-    0%   {width: 100%;}
-    100% {width: 65%;}
+    0%   {width: 100%; 
+        height: 100%;}
+    100% {width: 65%; 
+        height: 100%;}
 }
 
 

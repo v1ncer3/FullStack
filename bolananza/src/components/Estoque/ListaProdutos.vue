@@ -3,6 +3,9 @@
         <div class="dados-infos">
             <h2>Produtos</h2>
         </div>
+        <div class="pesquisa">
+
+        </div>
         <div class="dados-itens" v-if="produtos && produtos.length > 0">
             <table>
                 <thead>
@@ -11,6 +14,8 @@
                         <th>Nome</th>
                         <th>Quantidade</th>
                         <th>Valor</th>
+                        <th>Data Lançamento</th>
+                        <th>Última atualizaçao</th>
                         <th>Novo lote</th>
                         <th>Editar</th>
                         <th>Ajustar</th>
@@ -23,6 +28,8 @@
                         <td>{{ produto.nome }}</td>
                         <td>{{ produto.quantidade }}</td>
                         <td>${{ produto.valor }}</td>
+                        <td>{{ produto.lancamento }}</td>
+                        <td>{{ produto.atualizacao }}</td>
                         <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto)"></i></td>
                         <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto)"></i></td>
                         <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto)"></i></td>
@@ -39,6 +46,8 @@
 </template>
 
 <script>
+import Search from '../Salao/Comandas/Lista/Search.vue';
+
 export default{
     data(){
         return{
@@ -48,7 +57,9 @@ export default{
                             "nome": "coca-cola 2L",
                             "valorVenda": "17.40",
                             "valorCompra": "9.40",
-                            "quantidade": "3"
+                            "quantidade": "3",
+                            "lancamento": "13/03/2024",
+                            "atualizacao": "14/03/2024"
                         },
                         
                     ]
@@ -72,7 +83,8 @@ export default{
             console.log("produto deletado do estoque, id " + produto.id);
         }
     },
-    emits: [ 'widgetProdutoAtivo', 'CadastroProdutos' ]
+    emits: [ 'widgetProdutoAtivo', 'CadastroProdutos' ],
+    components: ['Search']
 }
 </script>
 
