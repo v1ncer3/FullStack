@@ -1,28 +1,163 @@
 <template>
     <div class="widgetProdutosAtivos">
+        <div class="close">
+            <i v-on:click="closeWidgetProdutosAtivos()" class="fa fa-close close" style="font-size:18px;color:#CA054D; margin: 10px;"></i>
+        </div>
         <div class="header">
-            <div class="headerProdutosAtivos"  v-if="this.Lote == true">
+            <div class="headerProdutosAtivos"  v-if="this.Cadastro == true" v-bind="this.setReadOnly('Cadastro')">
+                <h2>Novo produto</h2>
+            </div>
+            <div class="headerProdutosAtivos"  v-else-if="this.Lote == true" v-bind="this.setReadOnly('Lote')">
                 <h2>Novo lote de produto</h2>
             </div>
-            <div class="headerProdutosAtivos"  v-if="this.Editar == true">
+            <div class="headerProdutosAtivos"  v-if="this.Editar == true" v-bind="this.setReadOnly('Editar')">
                 <h2>Edição de produto</h2>
             </div>
-            <div class="headerProdutosAtivos"  v-if="this.Ajustar == true">
+            <div class="headerProdutosAtivos"  v-if="this.Ajustar == true" v-bind="this.setReadOnly('Ajustar')">
                 <h2>Ajuste do estoque</h2>
             </div>
-            <div class="headerProdutosAtivos"  v-if="this.Excluir == true">
+            <div class="headerProdutosAtivos"  v-if="this.Excluir == true" v-bind="this.setReadOnly('Excluir')">
                 <h2>Exclusão do produto</h2>
             </div>
         </div>
-        <div class="body">
-            <h4> body</h4> <!-- labels and inputs-->
+        <div class="body" v-if="this.Cadastro == true">
+            <form @submit.prevent="submitForm">
+                <div>
+                <label for="identificador">Código:</label>
+                <input type="number" id="identificador" v-model="produto.identificador" required>
+                </div>
+                <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" v-model="produto.nome" required>
+                </div>
+                <div>
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" v-model.number="produto.quantidade" required>
+                </div>
+                <div>
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" v-model.number="produto.valor" required>
+                </div>
+                <button type="submit" id="salvar">Salvar</button>
+                <button type="submit" id="excluir" hidden>Excluir</button>
+            </form>
+        </div>
+        <div class="body" v-else="this.Cadastro == false">
+            <form @submit.prevent="submitForm">
+                <div>
+                <label for="identificador">Código:</label>
+                <input type="number" id="identificador" min="1"  v-model="this.ProdutoEditado.id" required>
+                </div>
+                <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" v-model="this.ProdutoEditado.nome" required>
+                </div>
+                <div>
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" min="0" v-model.number="this.ProdutoEditado.quantidade" required>
+                </div>
+                <div>
+                <label for="valor">Valor:</label>
+                <input type="number" id="valor" min="0"  v-model.number="this.ProdutoEditado.valor" required>
+                </div>
+                <button type="submit" id="salvar">Salvar</button>
+                <button type="submit" id="excluir" hidden>Excluir</button>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
     export default{
-        props: ['Lote', 'Editar', 'Ajustar', 'Excluir']
+        props: [ 'Cadastro', 'Lote', 'Editar', 'Ajustar', 'Excluir', 'ProdutoEditado'],
+        data() {
+            return {
+                produto: {
+                    id: 0,
+                    nome: '',
+                    quantidade: 0,
+                    valor: 0,
+                },
+            }
+        },
+        methods: {
+            submitForm() {
+                let salvarBtn = document.getElementById('salvar').hidden;
+                let excluirBtn = document.getElementById('excluir').hidden;
+                if(this.Excluir == true){
+                    //verifica as comandas abertas
+                    //excluir item
+                }else if(this.Cadastro == true){
+                    //valida codigo
+                    this.saveProduct(this.produto);
+                    //estatisticas
+                    this.closeWidgetProdutosAtivos();
+                }else if(this.Lote == true){
+                    //valida codigo
+                    this.saveProduct(this.produto);
+                    //estatisticas
+                    this.closeWidgetProdutosAtivos();
+                }else if(this.Editar == true || this.Ajustar == true){
+                    this.saveProduct(this.produto);
+                    this.closeWidgetProdutosAtivos();
+                }
+            },
+            closeWidgetProdutosAtivos(){
+                this.produto.nome = '';
+                this.produto.quantidade = 0;
+                this.produto.valor = 0;
+                this.$emit('closeWidgetProdutosAtivos');
+                this.$emit('reloadDataSourceWidgetListaProdutos');
+            },
+            setReadOnly(tipoFormulario){
+                switch(tipoFormulario){
+                    case 'Cadastro':
+                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('nome').readOnly = false;
+                        document.getElementById('quantidade').readOnly = false;
+                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('excluir').hidden = true;
+                        document.getElementById('salvar').hidden = false;
+                        break;
+                    case 'Lote':
+                        document.getElementById('identificador').readOnly = true;
+                        document.getElementById('nome').readOnly = true;
+                        document.getElementById('quantidade').readOnly = false;
+                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('excluir').hidden = true;
+                        document.getElementById('salvar').hidden = false;
+                        break;
+                    case 'Editar':
+                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('nome').readOnly = false;
+                        document.getElementById('quantidade').readOnly = false;
+                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('excluir').hidden = true;
+                        document.getElementById('salvar').hidden = false;
+                        break;
+                    case 'Ajustar':
+                        document.getElementById('identificador').readOnly = false;
+                        document.getElementById('nome').readOnly = false;
+                        document.getElementById('quantidade').readOnly = false;
+                        document.getElementById('valor').readOnly = false;
+                        document.getElementById('excluir').hidden = true;
+                        document.getElementById('salvar').hidden = false;
+                        console.log('Ajustar');
+                        break;
+                    case 'Excluir':
+                        document.getElementById('identificador').readOnly = true;
+                        document.getElementById('nome').readOnly = true;
+                        document.getElementById('quantidade').readOnly = true;
+                        document.getElementById('valor').readOnly = true;
+                        document.getElementById('excluir').hidden = false;
+                        document.getElementById('salvar').hidden = true;
+                        console.log('Excluir');
+                        break;
+                }
+            }
+        },
+        emits: ['closeWidgetProdutosAtivos', 'reloadDataSourceWidgetListaProdutos'],
+        
     }
 </script>
 

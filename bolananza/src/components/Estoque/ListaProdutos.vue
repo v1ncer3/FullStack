@@ -22,11 +22,11 @@
                         <td>{{ produto.id }}</td>
                         <td>{{ produto.nome }}</td>
                         <td>{{ produto.quantidade }}</td>
-                        <td>{{ produto.valor }}</td>
-                        <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto.id)"></i></td>
-                        <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto.id)"></i></td>
-                        <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto.id)"></i></td>
-                        <td><i class="fa fa-trash-o" aria-hidden="true" v-on:click="deletaProdutoEstoque(produto.id)"></i></td>
+                        <td>${{ produto.valor }}</td>
+                        <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-trash-o" aria-hidden="true" v-on:click="deletaProdutoEstoque(produto)"></i></td>
                     </tr>
                 </tbody>
             </table>
@@ -34,6 +34,7 @@
         <div class="dados-itens" v-else-if="!produtos">
             <h4>Adicione produtos a lista, por favor.</h4>        
         </div>
+        <div class="actions"><button class="add-produto" v-on:click="this.$emit('CadastroProdutos')">+</button></div>
     </div>
 </template>
 
@@ -118,24 +119,24 @@ export default{
         }
     },
     methods:{
-        novoEstoque(id){
-            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Lote'});
-            console.log("novo estoque do produto cadastrado, id " + id);
+        novoEstoque(produto){
+            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Lote'});
+            console.log("novo estoque do produto cadastrado, id " + produto.id);
         },
-        editaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Editar'});
-            console.log("estoque editado do produto, id " + id);
+        editaProdutoEstoque(produto){
+            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Editar'});
+            console.log("estoque editado do produto, id " + produto.id);
         },
-        ajustaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Ajustar'});
-            console.log("estoque ajustado do produto, id " + id);
+        ajustaProdutoEstoque(produto){
+            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Ajustar'});
+            console.log("estoque ajustado do produto, id " + produto.id);
         },
-        deletaProdutoEstoque(id){
-            this.$emit('widgetProdutoAtivo', {ativo: true, id: id, prop: 'Excluir'});
-            console.log("produto deletado do estoque, id " + id);
+        deletaProdutoEstoque(produto){
+            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Excluir'});
+            console.log("produto deletado do estoque, id " + produto.id);
         }
     },
-    emits: [ 'widgetProdutoAtivo' ]
+    emits: [ 'widgetProdutoAtivo', 'CadastroProdutos' ]
 }
 </script>
 

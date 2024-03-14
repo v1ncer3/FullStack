@@ -26,17 +26,19 @@
 
 .modal{
     display: none;
+    opacity: 0;
 }
 
 .modal.produtoAtivo{
-    display:block;
+    display: block;
     animation-name: aumentarWidget;
     animation-duration: 0.7s;
     width: 35%;
+    opacity: 1;
     margin: 0px 10px 0px 10px;
 }
 
 @keyframes aumentarWidget{
-    0%   {width: 1%;}
-    100% {width: 35%;}
+    0%   {width: 0%; opacity: 0;}
+    100% {width: 35%; opacity: 1;}
 }

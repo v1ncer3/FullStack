@@ -26,13 +26,6 @@ td, th{
     text-align: center;
 }
 
-.dados-actions{
-    min-height: 5vh;
-    max-height: 10vh;
-    width: 100%;
-    display: flex;
-    justify-content: end;
-}
 
 .config-comanda{
     
@@ -45,3 +38,15 @@ td, th{
     align-items: center;
 }
 
+.actions{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.add-produto{
+    border-color: transparent;
+    background-color: transparent;
+    margin: 0px 20px 5px 5px;
+}
