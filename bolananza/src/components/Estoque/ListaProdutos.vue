@@ -1,10 +1,10 @@
 <template>
-    <div class="dados config-comanda">
+    <div class="config-comanda">
         <div class="dados-infos">
             <h2>Produtos</h2>
         </div>
         <div class="pesquisa">
-
+            <Search @Pesquisa="console.log($event)"/>
         </div>
         <div class="dados-itens" v-if="produtos && produtos.length > 0">
             <table>
@@ -38,7 +38,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="dados-itens" v-else-if="!produtos">
+        <div class="dados-itens" v-else-if="produtos.length == 0">
             <h4>Adicione produtos a lista, por favor.</h4>        
         </div>
         <div class="actions"><button class="add-produto" v-on:click="this.$emit('CadastroProdutos')">+</button></div>
@@ -51,18 +51,7 @@ import Search from '../Salao/Comandas/Lista/Search.vue';
 export default{
     data(){
         return{
-            produtos: [
-                        {
-                            "id":"1",
-                            "nome": "coca-cola 2L",
-                            "valorVenda": "17.40",
-                            "valorCompra": "9.40",
-                            "quantidade": "3",
-                            "lancamento": "13/03/2024",
-                            "atualizacao": "14/03/2024"
-                        },
-                        
-                    ]
+            produtos: []
         }
     },
     methods:{
@@ -84,7 +73,7 @@ export default{
         }
     },
     emits: [ 'widgetProdutoAtivo', 'CadastroProdutos' ],
-    components: ['Search']
+    components: { Search }
 }
 </script>
 

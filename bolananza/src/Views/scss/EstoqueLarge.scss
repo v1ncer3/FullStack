@@ -5,11 +5,12 @@
 .estoque{
     display: flex;
     flex-direction: row;
+    min-height: 90vh;
 }
 
 .lista{
     width: 100%;
-    height: 100%;
+    height: 90vh;
     margin: 0px 10px 0px 10px;
 }
 
@@ -17,20 +18,21 @@
     animation-name: reduzirWidget;
     animation-duration: 0.7s;
     width: 65%;
-    height: 100%;
+    height: 90vh;
 }
 
 @keyframes reduzirWidget{
     0%   {width: 100%; 
-        height: 100%;}
+        height: 90vh;}
     100% {width: 65%; 
-        height: 100%;}
+        height: 90vh;}
 }
 
 
 .modal{
     display: none;
     opacity: 0;
+    height: 90vh;
 }
 
 .modal.produtoAtivo{
@@ -39,10 +41,15 @@
     animation-duration: 0.7s;
     width: 35%;
     opacity: 1;
+    height: 90vh;
     margin: 0px 10px 0px 10px;
 }
 
 @keyframes aumentarWidget{
-    0%   {width: 0%; opacity: 0;}
-    100% {width: 35%; opacity: 1;}
+    0%   {width: 0%; 
+        opacity: 0; 
+        height: 90vh;}
+    100% {width: 35%; 
+        opacity: 1;
+        height: 90vh;}
 }

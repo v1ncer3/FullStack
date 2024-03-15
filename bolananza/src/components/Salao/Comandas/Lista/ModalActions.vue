@@ -12,11 +12,12 @@
         <div class="modal" id="modal" v-else-if="this.Fechar == true && this.Modal " >
             <div class="nova-comanda">
                 <h3>A confirmação da operação irá fechar a comanda. Não sendo possível editá-la no futuro. Deseja continuar?</h3>
-                <h4>O valor da comanda é: $<p id="valorTotal">{{ this.calculaValorTotal() }}</p>.</h4>
+                <h4>Subtotal: ${{ this.calculaValorSubTotal() }}</h4>
                 <div>
-                  <label for="desconto">Desconto:</label>
-                  <input type="number" id="desconto" min="0.0" value="0.0" step="0.25" v-on:change="this.calculaValorTotal()" required>
+                  <label for="desconto">Desconto (%):</label>
+                  <input type="number" id="desconto" min="0.0" step="0.25" v-on:change="this.calculaValorTotal()" required>
                 </div>
+                <h4>Total: ${{ this.valorTotal }}</h4>
             </div>
             <div class="footer"> 
                 <i v-on:click="closeModalBackdrop()" class="fa fa-close close" style="font-size:18px;color:#CA054D"> Voltar</i>
@@ -29,6 +30,11 @@
 <script>
 
 export default{
+    data(){
+      return {
+        valorTotal: '0.0',
+      }
+    },
     props:[ 'Excluir', 'Fechar', 'Modal', 'valorComanda' ],
     methods:{
         closeModalBackdrop(){
@@ -40,20 +46,26 @@ export default{
         fecharComanda(){ 
             this.closeModalBackdrop(); 
         },
-        calculaValorTotal(){
+        calculaValorSubTotal(){
           let valor;
-          if(document.getElementById('desconto') == null){
-            valor = parseFloat(this.valorComanda).toFixed(2);
-            document.getElementById('valorTotal').text = valor;
-            return valor;
-          }
-          valor = parseFloat(this.valorComanda).toFixed(2) - parseFloat(document.getElementById('desconto').value).toFixed(2);
-          document.getElementById('valorTotal').text = valor;
+          valor = parseFloat(this.valorComanda).toFixed(2);
           return valor;
-          
+        },
+        calculaValorTotal(){
+          if(document.getElementById('desconto') == null){
+            this.valorTotal = parseFloat(this.valorComanda).toFixed(2);
+          }else{
+            let desconto = document.getElementById('desconto').value;
+            let descontoTotal = ((desconto / 100) * this.valorComanda)
+            this.valorTotal = parseFloat(this.valorComanda - parseFloat(descontoTotal)).toFixed(2);
+          }
         }
     },
-    emits: [ '' ]
+    emits: [ 'closeModalActions' ],
+    mounted(){
+      this.calculaValorTotal()
+    }
+    
 }
 </script>
 
@@ -84,7 +96,7 @@ export default{
 
 .modal {
   position: fixed;
-  top: 40%;
+  top: 35%;
   left: 30%;
   width: auto;
   height: auto;
@@ -93,11 +105,12 @@ export default{
   margin: 0px 0px 0px 10px;
   animation-name: gota;
   animation-duration: 0.4s;
+  max-width: 550px;
 }
 
 @keyframes gota{
-  0%   {left:00%; top:40%; opacity: 0;}
-  100% {left:30%; top:40%; opacity: 1;}
+  0%   {left:00%; top:35%; opacity: 0;}
+  100% {left:30%; top:35%; opacity: 1;}
 }
 
 .close{

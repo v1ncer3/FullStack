@@ -81,11 +81,11 @@
         data() {
             return {
                 produto: {
-                    id: 0,
+                    id: '',
                     nome: '',
-                    quantidade: 0,
-                    valorCompra: 0,
-                    valorVenda:0,
+                    quantidade: '',
+                    valorCompra: '',
+                    valorVenda:'',
                 },
             }
         },
