@@ -121,7 +121,7 @@
             setReadOnly(tipoFormulario){
                 switch(tipoFormulario){
                     case 'Cadastro':
-                        document.getElementById('identificador').readOnly = true;
+                        document.getElementById('identificador').readOnly = false;
                         document.getElementById('nome').readOnly = false;
                         document.getElementById('quantidade').readOnly = false;
                         document.getElementById('valorCompra').readOnly = false;
@@ -139,7 +139,7 @@
                         document.getElementById('salvar').hidden = false;
                         break;
                     case 'Editar':
-                        document.getElementById('identificador').readOnly = true;
+                        document.getElementById('identificador').readOnly = false;
                         document.getElementById('nome').readOnly = false;
                         document.getElementById('quantidade').readOnly = false;
                         document.getElementById('valorCompra').readOnly = false;

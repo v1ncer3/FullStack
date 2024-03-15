@@ -3,7 +3,7 @@ import ButtonLogo from './buttonLogo.vue'
 export default {
     data(){
         return {
-            menuList: ["Estoque", "Comandas", "Agenda"],
+            menuList: ["Estoque", "Comandas"],
             rotas:["/Estoque", "/Comandas", ""]
         }
     },
@@ -12,7 +12,6 @@ export default {
 </script>
 
 <template>
-
     <nav class="navigation">
         <ButtonLogo />
         <header class="headerList">
@@ -21,9 +20,6 @@ export default {
             </router-link>
             <router-link to="/Comandas">
                 <button class="menuButton">Comandas</button>
-            </router-link>
-            <router-link to="/Agenda">
-                <button class="menuButton">Agenda</button>
             </router-link>
         </header>
     </nav>

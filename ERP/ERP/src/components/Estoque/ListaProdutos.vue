@@ -15,7 +15,6 @@
                         <th>Quantidade</th>
                         <th>Valor</th>
                         <th>Data Lançamento</th>
-                        <th>Última atualizaçao</th>
                         <th>Novo lote</th>
                         <th>Editar</th>
                         <th>Ajustar</th>
@@ -29,7 +28,6 @@
                         <td>{{ produto.quantidade }}</td>
                         <td>${{ produto.valor }}</td>
                         <td>{{ produto.lancamento }}</td>
-                        <td>{{ produto.atualizacao }}</td>
                         <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto)"></i></td>
                         <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto)"></i></td>
                         <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto)"></i></td>
