@@ -1,14 +1,14 @@
 <template>
-    <div class="estoque" :class="{ produtoAtivo }" >
-        <ListaProdutos class="lista" :class="{ produtoAtivo }" @widgetProdutoAtivo="this.setwidgetProdutoAtivo($event)" @CadastroProdutos="this.openProdutoAtivoCadastro()"/>
-        <ProdutosAtivo class="modal" :class="{ produtoAtivo }" :Cadastro="this.Cadastro" :Lote="this.Lote" :Editar="this.Editar" :Ajustar="this.Ajustar" :Excluir="this.Excluir" :ProdutoEditado="this.ProdutoEditado" @closeWidgetProdutosAtivos="this.closeWidgetProdutosAtivos()" @reloadDataSourceWidgetListaProdutos="reloadDataSourceWidgetListaProdutos()" />
+    <div class="estoque" :class="{ produtoAtivo }">
+        <ListaProdutos class="lista" :class="{ produtoAtivo }" :produtos="this.ArrayProdutos" @widgetProdutoAtivo="this.setwidgetProdutoAtivo($event)" @reloadLista="this.carregaProdutos()"/>
+        <ProdutosAtivo class="modal" :class="{ produtoAtivo }" :Cadastro="this.Cadastro" :Lote="this.Lote" :Editar="this.Editar" :Ajustar="this.Ajustar" :Excluir="this.Excluir" :ProdutoEditado="this.ProdutoEditado" @closeWidgetProdutosAtivos="this.closeWidgetProdutosAtivos()" />
     </div>
 </template>
 
 <script>
 import ListaProdutos from '../components/Estoque/ListaProdutos.vue'
 import ProdutosAtivo from '../components/Estoque/ProdutosAtivo.vue'
-
+import axios from 'axios';
 export default{
     data(){
         return{
@@ -18,15 +18,15 @@ export default{
             Editar: false,
             Ajustar: false,
             Excluir: false,
-            ProdutoEditado:{}
+            ProdutoEditado:{},
+            ArrayProdutos: []
         }
     },
     methods:{
         setwidgetProdutoAtivo({ativo, produto, prop}){
-            this.produtoAtivo = ativo;
             switch(prop){
                 case 'Lote':
-                    this.Cadastro = false,
+                    this.Cadastro = false;
                     this.Lote = true;
                     this.Editar = false;
                     this.Ajustar = false;
@@ -34,7 +34,7 @@ export default{
                     this.ProdutoEditado = produto;
                     break;
                 case 'Editar':
-                    this.Cadastro = false,
+                    this.Cadastro = false;
                     this.Lote = false;
                     this.Editar = true;
                     this.Ajustar = false;
@@ -42,7 +42,7 @@ export default{
                     this.ProdutoEditado = produto;
                     break;
                 case 'Ajustar':
-                    this.Cadastro = false,
+                    this.Cadastro = false;
                     this.Lote = false;
                     this.Editar = false;
                     this.Ajustar = true;
@@ -50,31 +50,40 @@ export default{
                     this.ProdutoEditado = produto;
                     break;
                 case 'Excluir':
-                    this.Cadastro = false,
+                    this.Cadastro = false;
                     this.Lote = false;
                     this.Editar = false;
                     this.Ajustar = false;
                     this.Excluir = true;
                     this.ProdutoEditado = produto;
                     break;
+                case 'Novo':
+                    this.Cadastro = true;
+                    this.Lote = false;
+                    this.Editar = false;
+                    this.Ajustar = false;
+                    this.Excluir = false;
+                    this.produtoAtivo = ativo;
+                    this.ProdutoEditado = {};
+                    break;
             }
+            
         },
         closeWidgetProdutosAtivos(){
-            this.produtoAtivo = false
+            this.produtoAtivo = false;
+            this.carregaProdutos();
         },
-        reloadDataSourceWidgetListaProdutos(){
-            console.log('datasource reloaded')
+        async carregaProdutos(){
+            let response = await axios.get('http://localhost:3000/Estoque/');
+            if(response.status == 200){
+                this.ArrayProdutos = response.data;
+            }
         },
-        openProdutoAtivoCadastro(){
-            this.ProdutoEditado= {};
-            this.produtoAtivo = true;
-            this.Cadastro = true;
-        }
     },
-    mounted(){
-        this.reloadDataSourceWidgetListaProdutos()
-    },
-    components:{ ListaProdutos, ProdutosAtivo }
+    components:{ ListaProdutos, ProdutosAtivo },
+    mouted(){
+        this.carregaProdutos()
+    }
 
 }
 

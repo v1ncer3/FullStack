@@ -6,14 +6,15 @@
         <div class="pesquisa">
             <Search @Pesquisa="console.log($event)"/>
         </div>
-        <div class="dados-itens" v-if="produtos && produtos.length > 0">
+        <div class="dados-itens" v-if="this.produtos && this.produtos.length > 0">
             <table>
                 <thead>
                     <tr>
-                        <th>Código</th>
+                        <th>Cód. Produto</th>
                         <th>Nome</th>
                         <th>Quantidade</th>
-                        <th>Valor</th>
+                        <th>Vr. Compra</th>
+                        <th>Vr. Venda</th>
                         <th>Data Lançamento</th>
                         <th>Novo lote</th>
                         <th>Editar</th>
@@ -26,8 +27,9 @@
                         <td>{{ produto.id }}</td>
                         <td>{{ produto.nome }}</td>
                         <td>{{ produto.quantidade }}</td>
-                        <td>${{ produto.valor }}</td>
-                        <td>{{ produto.lancamento }}</td>
+                        <td>R${{ produto.valorCompra }}</td>
+                        <td>R${{ produto.valorVenda }}</td>
+                        <td>{{ produto.dataLancamento }}</td>
                         <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto)"></i></td>
                         <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto)"></i></td>
                         <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto)"></i></td>
@@ -36,42 +38,42 @@
                 </tbody>
             </table>
         </div>
-        <div class="dados-itens" v-else-if="produtos.length == 0">
+        <div class="dados-itens" v-else-if="this.produtos.length == 0">
             <h4>Adicione produtos a lista, por favor.</h4>        
         </div>
-        <div class="actions"><button class="add-produto" v-on:click="this.$emit('CadastroProdutos')">+</button></div>
+        <div class="actions">
+            <i class="fa fa-refresh refresh" aria-hidden="true" v-on:click="this.$emit('reloadLista')"></i>
+            <i class="fa fa-plus refresh" aria-hidden="true" v-on:click="novoProduto(produto)"></i>
+        </div>
     </div>
 </template>
 
 <script>
 import Search from '../Salao/Comandas/Lista/Search.vue';
-
 export default{
-    data(){
-        return{
-            produtos: []
-        }
-    },
+    props:[ 'produtos' ],
     methods:{
+        novoProduto(){
+            this.$emit('widgetProdutoAtivo', {ativo: true, produto: {}, prop: 'Novo'});
+        },
         novoEstoque(produto){
             this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Lote'});
-            console.log("novo estoque do produto cadastrado, id " + produto.id);
         },
         editaProdutoEstoque(produto){
             this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Editar'});
-            console.log("estoque editado do produto, id " + produto.id);
         },
         ajustaProdutoEstoque(produto){
             this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Ajustar'});
-            console.log("estoque ajustado do produto, id " + produto.id);
         },
         deletaProdutoEstoque(produto){
             this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Excluir'});
-            console.log("produto deletado do estoque, id " + produto.id);
         }
     },
-    emits: [ 'widgetProdutoAtivo', 'CadastroProdutos' ],
-    components: { Search }
+    emits: [ 'widgetProdutoAtivo', 'reloadLista'],
+    components: { Search },
+    mounted(){
+        this.$emit('reloadLista')
+    }
 }
 </script>
 
