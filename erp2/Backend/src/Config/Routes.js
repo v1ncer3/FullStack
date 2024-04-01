@@ -13,9 +13,9 @@ app.use(configRequest);
 app.get('/', homeData);
 
 //estoque
-app.get('/Estoque', estoqueData);
-app.post('/Estoque', cadastraProduto);
-app.delete('/Estoque', excluirProduto);
+//app.get('/Estoque', estoqueData);
+//app.post('/Estoque', cadastraProduto);
+//app.delete('/Estoque', excluirProduto);
 
 //produtos
 

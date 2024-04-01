@@ -1,47 +1,35 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <Header />
+    <router-view />
+    <Footer />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script>
+    import Header from "./components/Header/header.vue"
+    import Footer from "./components/Footer/footer.vue"
+
+    export default{
+        components:{ Header, Footer }
+    }
+</script>
+
+<style lang="scss" scoped>
+
+*{
+  font-family: 'Roboto', 'Times New Roman', Times, serif;
+  
+  ::-webkit-scrollbar{
+    width: 8px;
+  }
+    
+  ::-webkit-scrollbar-thumb{
+    background-color: #B96D40;
+  }
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+body{
+  background-color: #141414;
+  margin: 0px;
+  overflow: none; /* Show scrollbars */
 }
 </style>

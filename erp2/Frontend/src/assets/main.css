@@ -7,6 +7,10 @@
   font-weight: normal;
 }
 
+body{
+  margin: 0px;
+}
+
 a,
 .green {
   text-decoration: none;
@@ -25,6 +29,7 @@ a,
   body {
     display: flex;
     place-items: center;
+    margin: 0px;
   }
 
   #app {
