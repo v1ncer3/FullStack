@@ -1,7 +1,7 @@
 <template>
     <div class="estoque" :class="{ produtoAtivo }">
         <ListaProdutos class="lista" :class="{ produtoAtivo }" :produtos="this.ArrayProdutos" @widgetProdutoAtivo="this.setwidgetProdutoAtivo($event)" @reloadLista="this.carregaProdutos()"/>
-        <ProdutosAtivo class="modal" :class="{ produtoAtivo }" :Cadastro="this.Cadastro" :Lote="this.Lote" :Editar="this.Editar" :Ajustar="this.Ajustar" :Excluir="this.Excluir" :ProdutoEditado="this.ProdutoEditado" @closeWidgetProdutosAtivos="this.closeWidgetProdutosAtivos()" />
+        <ProdutosAtivo class="modal" :class="{ produtoAtivo }" :Cadastro="this.Cadastro" :Lote="this.Lote" :Editar="this.Editar" :Excluir="this.Excluir" :ProdutoEditado="this.ProdutoEditado" :headerProdutoAtivoTitulo="this.headerProdutoAtivoTitulo" @closeWidgetProdutosAtivos="this.closeWidgetProdutosAtivos()" />
     </div>
 </template>
 
@@ -16,9 +16,9 @@ export default{
             Cadastro: false,
             Lote: false,
             Editar: false,
-            Ajustar: false,
             Excluir: false,
-            ProdutoEditado:{},
+            ProdutoEditado: {},
+            headerProdutoAtivoTitulo: '',
             ArrayProdutos: []
         }
     },
@@ -29,49 +29,45 @@ export default{
                     this.Cadastro = false;
                     this.Lote = true;
                     this.Editar = false;
-                    this.Ajustar = false;
                     this.Excluir = false;
+                    this.produtoAtivo = ativo;
                     this.ProdutoEditado = produto;
+                    this.headerProdutoAtivoTitulo = prop;
                     break;
                 case 'Editar':
                     this.Cadastro = false;
                     this.Lote = false;
                     this.Editar = true;
-                    this.Ajustar = false;
                     this.Excluir = false;
+                    this.produtoAtivo = ativo;
                     this.ProdutoEditado = produto;
-                    break;
-                case 'Ajustar':
-                    this.Cadastro = false;
-                    this.Lote = false;
-                    this.Editar = false;
-                    this.Ajustar = true;
-                    this.Excluir = false;
-                    this.ProdutoEditado = produto;
+                    this.headerProdutoAtivoTitulo = prop;
                     break;
                 case 'Excluir':
                     this.Cadastro = false;
                     this.Lote = false;
                     this.Editar = false;
-                    this.Ajustar = false;
                     this.Excluir = true;
+                    this.produtoAtivo = ativo;
                     this.ProdutoEditado = produto;
+                    this.headerProdutoAtivoTitulo = prop;
                     break;
                 case 'Novo':
                     this.Cadastro = true;
                     this.Lote = false;
                     this.Editar = false;
-                    this.Ajustar = false;
                     this.Excluir = false;
                     this.produtoAtivo = ativo;
-                    this.ProdutoEditado = {};
+                    this.ProdutoEditado = produto;
+                    this.headerProdutoAtivoTitulo = prop;
                     break;
             }
             
         },
-        closeWidgetProdutosAtivos(){
+        async closeWidgetProdutosAtivos(){
             this.produtoAtivo = false;
-            this.carregaProdutos();
+            this.ProdutoEditado = {};
+            await this.carregaProdutos();
         },
         async carregaProdutos(){
             let response = await axios.get('http://localhost:3000/Estoque/');

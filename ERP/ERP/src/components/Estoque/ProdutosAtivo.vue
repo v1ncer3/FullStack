@@ -1,44 +1,18 @@
 <template>
     <div class="widgetProdutosAtivos">
         <div class="close">
-            <i v-on:click="closeWidgetProdutosAtivos()" class="fa fa-close close" style="font-size:18px;color:#CA054D; margin: 10px;"></i>
+            <i v-on:click="closeWidgetProdutosAtivos()" class="fa fa-close close" style="font-size:18px;color:#CA054D; margin: 10px;  cursor: pointer;"></i>
         </div>
         <div class="header">
             <div class="headerProdutosAtivos">
-                <h2>{{ headerProdutoAtivoTitulo }}</h2>
+                <h2>{{ this.headerProdutoAtivoTitulo }}</h2>
             </div>
         </div>
-        <div class="body" v-if="this.Cadastro == true">
+        <div class="body">
             <form @submit.prevent="submitForm">
                 <div>
                 <label for="identificador">Código:</label>
-                <input type="number" id="identificador" placeholder="12345 - Máx: 5 digitos" min="1" max="99999" step="1" v-model="produto.id" required>
-                </div>
-                <div>
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" placeholder="Computador - Máx: 45 digitos" v-model="produto.nome" required>
-                </div>
-                <div>
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" placeholder="1" min="1" step="1" v-model.number="produto.quantidade" required>
-                </div>
-                <div>
-                <label for="valor">Valor de compra:</label>
-                <input type="number" id="valorCompra" placeholder="$100" min="1.0" step="any" v-model.number="produto.valorCompra" required>
-                </div>
-                <div>
-                <label for="valor">Valor de venda:</label>
-                <input type="number" id="valorVenda" placeholder="$200" min="1.0" step="any" v-model.number="produto.valorVenda" required>
-                </div>
-                <button type="submit" id="salvar" hidden>Salvar</button>
-                <button type="submit" id="excluir" hidden>Excluir</button>
-            </form>
-        </div>
-        <div class="body" v-else-if="this.Cadastro == false">
-            <form @submit.prevent="submitForm">
-                <div>
-                <label for="identificador">Código:</label>
-                <input type="number" id="identificador" placeholder="12345 - Máx: 5 digitos"  min="1" max="5" step="1" v-model.number="this.ProdutoEditado.id" required>
+                <input type="number" id="identificador" placeholder="12345 - Máx: 5 digitos"  min="1" max="99999" step="1" v-model.number="this.ProdutoEditado.id" required>
                 </div>
                 <div>
                 <label for="nome">Nome:</label>
@@ -49,15 +23,15 @@
                 <input type="number" id="quantidade" placeholder="1" min="1" step="1"  v-model.number="this.ProdutoEditado.quantidade" required>
                 </div>
                 <div>
-                <label for="valor">Valor de compra:</label>
+                <label for="valor">Valor de compra (Unidade):</label>
                 <input type="number" id="valorCompra" placeholder="$100"  min="1.0" step="any" v-model.number="this.ProdutoEditado.valorCompra" required>
                 </div>
                 <div>
-                <label for="valor">Valor de venda:</label>
+                <label for="valor">Valor de venda (Unidade):</label>
                 <input type="number" id="valorVenda" placeholder="$200"  min="1.0" step="any" v-model.number="this.ProdutoEditado.valorVenda" required>
                 </div>
-                <button type="submit" id="salvar" hidden>Salvar</button>
-                <button type="submit" id="excluir" hidden>Excluir</button>
+                <button type="submit" id="salvar" v-if="this.Excluir == false">Salvar</button>
+                <button type="submit" id="excluir" v-else-if="this.Excluir == true">Excluir</button>
             </form>
         </div>
     </div>
@@ -65,8 +39,9 @@
 
 <script>
 import axios from 'axios';
+//PENSAR MELHOR SOBRE COMO ESSA TELA VAI FUNCIONAR - ESTOQUE, EDIÇÃO, NOME DA TELA(ESTOQUE, PRODUTOS), INSERIR NOVO CAMPO(QUANTIDADE ESTOQUE - VENDIDA)
 export default{
-    props: [ 'Cadastro', 'Lote', 'Editar', 'Ajustar', 'Excluir', 'ProdutoEditado', 'headerProdutoAtivoTitulo' ],
+    props: [ 'Cadastro', 'Lote', 'Editar', 'Excluir', 'ProdutoEditado', 'headerProdutoAtivoTitulo' ],
     data() {
         return {
             produto: {
@@ -79,26 +54,27 @@ export default{
         }
     },
     methods: {
-        submitForm() {
+        async submitForm() {
             if(this.Excluir == true){
                 //verifica as comandas abertas - TODO
                 //excluir item
-                this.excluirProduto(this.ProdutoEditado);
+                await this.excluirProduto(this.ProdutoEditado);
                 this.closeWidgetProdutosAtivos();
             }else if(this.Cadastro == true){
                 //valida codigo
-                this.salvaProduto(this.produto);
+                await this.salvaProduto(this.produto);
                 //estatisticas - TODO
                 this.closeWidgetProdutosAtivos();
             }else if(this.Lote == true){
                 //valida codigo
-                this.updateProduct(this.ProdutoEditado);
-                this.salvaCompra(this.ProdutoEditado);
+                await this.updateProduct(this.ProdutoEditado);
+                await this.salvaCompra(this.ProdutoEditado);
                 this.closeWidgetProdutosAtivos();
                 //estatisticas
                 this.closeWidgetProdutosAtivos();
-            }else if(this.Editar == true || this.Ajustar == true){
-                this.updateProduct(this.ProdutoEditado);
+            }else if(this.Editar == true){
+                await this.updateProduct(this.ProdutoEditado);
+                await this.updateCompra(this.ProdutoEditado);
                 this.closeWidgetProdutosAtivos();
             }
         },
@@ -110,54 +86,33 @@ export default{
             this.produto.valorVenda= '';
             this.$emit('closeWidgetProdutosAtivos');
         },
-        setReadOnly(tipoFormulario){
-            switch(tipoFormulario){
-                case 'Cadastro':
-                    document.getElementById('identificador').readOnly = false;
-                    document.getElementById('nome').readOnly = false;
-                    document.getElementById('quantidade').readOnly = false;
-                    document.getElementById('valorCompra').readOnly = false;
-                    document.getElementById('valorVenda').readOnly = false;
-                    document.getElementById('excluir').hidden = true;
-                    document.getElementById('salvar').hidden = false;
-                    break;
-                case 'Lote':
-                    document.getElementById('identificador').readOnly = true;
-                    document.getElementById('nome').readOnly = true;
-                    document.getElementById('quantidade').readOnly = false;
-                    document.getElementById('valorCompra').readOnly = false;
-                    document.getElementById('valorVenda').readOnly = false;
-                    document.getElementById('excluir').hidden = true;
-                    document.getElementById('salvar').hidden = false;
-                    break;
-                case 'Editar':
-                    document.getElementById('identificador').readOnly = false;
-                    document.getElementById('nome').readOnly = false;
-                    document.getElementById('quantidade').readOnly = false;
-                    document.getElementById('valorCompra').readOnly = false;
-                    document.getElementById('valorVenda').readOnly = false;
-                    document.getElementById('excluir').hidden = true;
-                    document.getElementById('salvar').hidden = false;
-                    break;
-                case 'Ajustar':
-                    document.getElementById('identificador').readOnly = true;
-                    document.getElementById('nome').readOnly = false;
-                    document.getElementById('quantidade').readOnly = false;
-                    document.getElementById('valorCompra').readOnly = false;
-                    document.getElementById('valorVenda').readOnly = false;
-                    document.getElementById('excluir').hidden = true;
-                    document.getElementById('salvar').hidden = false;
-                    break;
-                case 'Excluir':
-                    document.getElementById('identificador').readOnly = true;
-                    document.getElementById('nome').readOnly = true;
-                    document.getElementById('quantidade').readOnly = true;
-                    document.getElementById('valorCompra').readOnly = true;
-                    document.getElementById('valorVenda').readOnly = true;
-                    document.getElementById('excluir').hidden = false;
-                    document.getElementById('salvar').hidden = true;
-                    break;
-            }
+        setReadOnlyInFields(){
+            if(this.Cadastro == true){
+                document.getElementById('identificador').readOnly = false;
+                document.getElementById('nome').readOnly = false;
+                document.getElementById('quantidade').readOnly = false;
+                document.getElementById('valorCompra').readOnly = false;
+                document.getElementById('valorVenda').readOnly = false;
+            }else if(this.Lote == true){
+                document.getElementById('identificador').readOnly = true;
+                document.getElementById('nome').readOnly = true;
+                document.getElementById('quantidade').readOnly = false;
+                document.getElementById('valorCompra').readOnly = false;
+                document.getElementById('valorVenda').readOnly = false;
+                //carregar as infos antigas para comparação caso o produto não tenha sido zerado
+            }else if(this.Editar == true){
+                document.getElementById('identificador').readOnly = false;
+                document.getElementById('nome').readOnly = false;
+                document.getElementById('quantidade').readOnly = false;
+                document.getElementById('valorCompra').readOnly = false;
+                document.getElementById('valorVenda').readOnly = false;
+            }else if(this.Excluir == true){        
+                document.getElementById('identificador').readOnly = true;
+                document.getElementById('nome').readOnly = true;
+                document.getElementById('quantidade').readOnly = true;
+                document.getElementById('valorCompra').readOnly = true;
+                document.getElementById('valorVenda').readOnly = true;
+            }      
         },
         async excluirProduto(produto){
             let response = await axios.delete(`http://localhost:3000/Estoque/`, { 
@@ -195,7 +150,20 @@ export default{
         }
     },
     emits: ['closeWidgetProdutosAtivos', 'reloadLista'],
-    
+    watch:{
+        Cadastro: function() {
+            this.setReadOnlyInFields();
+        },
+        Lote: function() {
+            this.setReadOnlyInFields();
+        },
+        Editar: function() {
+            this.setReadOnlyInFields();
+        },
+        Excluir: function() {
+            this.setReadOnlyInFields();
+        }
+    }
 }
 </script>
 

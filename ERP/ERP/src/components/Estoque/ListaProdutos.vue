@@ -18,7 +18,6 @@
                         <th>Data Lançamento</th>
                         <th>Novo lote</th>
                         <th>Editar</th>
-                        <th>Ajustar</th>
                         <th>Excluir</th>
                     </tr>
                 </thead>
@@ -30,10 +29,9 @@
                         <td>R${{ produto.valorCompra }}</td>
                         <td>R${{ produto.valorVenda }}</td>
                         <td>{{ produto.dataLancamento }}</td>
-                        <td><i class="fa fa-plus" aria-hidden="true" v-on:click="novoEstoque(produto)"></i></td>
-                        <td><i class="fa fa-pencil" aria-hidden="true" v-on:click="editaProdutoEstoque(produto)"></i></td>
-                        <td><i class="fa fa-cube" aria-hidden="true" v-on:click="ajustaProdutoEstoque(produto)"></i></td>
-                        <td><i class="fa fa-trash-o" aria-hidden="true" v-on:click="deletaProdutoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-plus" aria-hidden="true" style="cursor: pointer;" v-on:click="novoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer;" v-on:click="editaProdutoEstoque(produto)"></i></td>
+                        <td><i class="fa fa-trash-o" aria-hidden="true" style="cursor: pointer;" v-on:click="deletaProdutoEstoque(produto)"></i></td>
                     </tr>
                 </tbody>
             </table>
@@ -42,48 +40,44 @@
             <h4>Adicione produtos a lista, por favor.</h4>        
         </div>
         <div class="actions">
-            <i class="fa fa-refresh refresh" aria-hidden="true" v-on:click="this.$emit('reloadLista')"></i>
-            <i class="fa fa-plus refresh" aria-hidden="true" v-on:click="novoProduto(produto)"></i>
+            <i class="fa fa-refresh refresh" aria-hidden="true" style="cursor: pointer;" v-on:click="this.$emit('reloadLista')"></i>
+            <i class="fa fa-plus refresh" aria-hidden="true" style="cursor: pointer;" v-on:click="novoProduto(produto)"></i>
         </div>
     </div>
 </template>
 
 <script>
-import Search from '../Salao/Comandas/Lista/Search.vue';
-export default{
-    props:[ 'produtos' ],
-    methods:{
-        novoProduto(){
-            this.$emit('widgetProdutoAtivo', {ativo: true, produto: {}, prop: 'Novo'});
+    import Search from '../Salao/Comandas/Lista/Search.vue';
+    export default{
+        props:[ 'produtos' ],
+        methods:{
+            novoProduto(){
+                this.$emit('widgetProdutoAtivo', {ativo: true, produto: {}, prop: 'Novo'});
+            },
+            novoEstoque(produto){
+                this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Lote'});
+            },
+            editaProdutoEstoque(produto){
+                this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Editar'});
+            },
+            deletaProdutoEstoque(produto){
+                this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Excluir'});
+            }
         },
-        novoEstoque(produto){
-            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Lote'});
-        },
-        editaProdutoEstoque(produto){
-            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Editar'});
-        },
-        ajustaProdutoEstoque(produto){
-            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Ajustar'});
-        },
-        deletaProdutoEstoque(produto){
-            this.$emit('widgetProdutoAtivo', {ativo: true, produto: produto, prop: 'Excluir'});
+        emits: [ 'widgetProdutoAtivo', 'reloadLista'],
+        components: { Search },
+        mounted(){
+            this.$emit('reloadLista');
         }
-    },
-    emits: [ 'widgetProdutoAtivo', 'reloadLista'],
-    components: { Search },
-    mounted(){
-        this.$emit('reloadLista')
     }
-}
 </script>
 
 <style lang="scss" scoped>
-@media(max-width: 1023px) {
-    @import "./scss/ListaProdutosSmall.scss";
-}
+    @media(max-width: 1023px) {
+        @import "./scss/ListaProdutosSmall.scss";
+    }
 
-@media(min-width: 1024px) {
-    @import "./scss/ListaProdutosLarge.scss";
-}
-
+    @media(min-width: 1024px) {
+        @import "./scss/ListaProdutosLarge.scss";
+    }
 </style>
