@@ -1,5 +1,8 @@
 <template>
     <Header />
+    <div style="background-color: #fff0be;">
+        produtos
+    </div>
 </template>
 
 <script>
@@ -10,12 +13,5 @@ export default{
 }
 </script>
 
-<style lang="scss">
-@media(max-width: 1023px) {
-    @import "./scss/Home/HomeSmall.scss";
-}
-
-@media(min-width: 1024px) {
-    @import "./scss/Home/HomeLarge.scss";
-}
+<style>
 </style>

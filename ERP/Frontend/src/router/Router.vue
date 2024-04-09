@@ -1,39 +1,57 @@
 <script>
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../Views/Home.vue'
-import Estoque from '../Views/Estoque.vue'
-import Comandas from '../Views/Comandas.vue'
-import Agenda from '../Views/Agenda.vue'
-import NotFound from '../Views/NotFound.vue'
 
+import Home     from '../Views/Home.vue';
+import Login    from '../Views/Login.vue';
+import Products from '../Views/Products.vue';
+import Finances from '../Views/Finances.vue';
+import Settings from '../Views/Settings.vue';
+import Users    from '../Views/Users.vue';
+import Command  from '../Views/Command.vue';
+import Schedule from '../Views/Schedules.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/Home',
       name: 'Home',
       component: Home
     },
     {
-      path: '/Estoque',
-      name: 'Estoque',
-      component: Estoque
+      path: '/Settings',
+      name: 'Settings',
+      component: Settings
     },
     {
-      path: '/Comandas',
-      name: 'Comandas',
-      component: Comandas
+      path: '/Products',
+      name: 'Products',
+      component: Products
     },
     {
-      path: '/Agenda',
-      name: 'Agenda',
-      component: Agenda
+      path: '/Finances',
+      name: 'Finances',
+      component: Finances
     },
     {
-      path: '/NotFound',
-      name: 'NotFound',
-      component: NotFound
+      path: '/Users',
+      name: 'Users',
+      component: Users
+    },
+    {
+      path: '/Commands',
+      name: 'Commands',
+      component: Command
+    },
+    {
+      path: '/Schedules',
+      name: 'Schedules',
+      component: Schedule
     }
   ]
 })

@@ -1,26 +1,49 @@
-<script lang="ts">
-import ButtonLogo from './buttonLogo.vue'
-export default {
-    data(){
-        return {
-            menuList: ["Estoque", "Comandas"],
-            rotas:["/Estoque", "/Comandas", ""]
+<script>
+import axios from 'axios';
+export default{
+    methods: {
+        async removeAutologin(){
+            try{
+                await axios.put('http://localhost:3000/Login/Users/Auth', {options: {'idUser': localStorage.getItem('idUser')}});
+            }catch(error){
+                console.log(error);
+            }
+            this.removeToken();
+            this.pushLogin();
+        },
+        removeToken(){
+            localStorage.removeItem('idUser');
+            localStorage.removeItem('token');
+        },
+        pushLogin(){
+            this.$router.push('/');
         }
-    },
-    components: { ButtonLogo }
+    }
 }
 </script>
 
 <template>
     <nav class="navigation">
-        <ButtonLogo />
         <header class="headerList">
-            <router-link to="/Estoque">
-                <button class="menuButton">Estoque</button>
+            <router-link to="/Home">
+                <button class="menuButton">Home</button>
             </router-link>
-            <router-link to="/Comandas">
+            <router-link to="/Products">
+                <button class="menuButton">Produtos</button>
+            </router-link>
+            <router-link to="/Commands">
                 <button class="menuButton">Comandas</button>
             </router-link>
+            <router-link to="/Finances">
+                <button class="menuButton">Financeiro</button>
+            </router-link>
+            <router-link to="/Schedules">
+                <button class="menuButton">Agenda</button>
+            </router-link>
+            <router-link to="/Settings">
+                <button class="menuButton" title="Configurações"><i class="fa fa-gear" aria-hidden="true"></i></button>
+            </router-link>
+            <button class="menuButton" v-on:click="this.removeAutologin" title="Sair"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
         </header>
     </nav>
 </template>
@@ -28,19 +51,28 @@ export default {
 
 
 <style scoped>
-
+.white{
+    color: white;
+}
 .navigation{
     display: flex;
-    justify-content: space-between;
-    height: 70px;
-}
-
-.headerList{
-    margin: 20px;
-    display: flex;
+    justify-content: space-between;  
     justify-content: end;
-    background-color: #141414;
+    height: 30px;
+}
+button{
     height: 100%;
+    margin:0px;
+}
+a{
+    height: 100%;
+    display: flex;
+    text-decoration:none;
+}
+.headerList{
+    display: flex;
+    align-items: center;
+    background-color: #141414;
 }
 
 .menuButton{
@@ -48,7 +80,8 @@ export default {
     border-color: transparent;
     background-color: transparent;
     color: white;
-    margin: 0px 0px 0px 20px;
+    text-decoration: none;
+    text-decoration-style: none;
 }
 
 .menuButton:hover{

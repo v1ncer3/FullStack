@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import contentButtonLogo from './contentButtonLogo.vue';
 
 export default{
@@ -19,7 +19,6 @@ export default{
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
-    max-height: 150px;
 }
 
 </style>

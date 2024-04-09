@@ -1,22 +1,37 @@
 // Importando o módulo mysql
 import db from 'mysql2/promise';
-
+import dotenv from 'dotenv';
+dotenv.config();
 // Configurações de conexão
 const config = {
-  host: '127.0.0.1',
-  user: 'root',
-  password: '0913905An.',
-  database: 'quadra'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 };
-
-
 
 // Exportar a conexão para ser utilizada em outros módulos, se necessário
 export { config, db };
 
 
 /*
+novos
 
+CREATE TABLE `users` (
+  `id` varchar(4) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `password` varchar(1000) NOT NULL,
+  `included` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `org` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`,`name`,`org`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+
+
+antigas
 CREATE TABLE `compras` (
   `CDCOMPRA` varchar(5) NOT NULL,
   `CDPRODUTO` varchar(5) NOT NULL,

@@ -1,23 +1,17 @@
 <template>
-    <Header />
     <router-view />
-    <Footer />
 </template>
 
 <script>
-    import Header from "./components/Header/header.vue"
-    import Footer from "./components/Footer/footer.vue"
-
-    export default{
-        components:{ Header, Footer }
-    }
+export default{
+}
 </script>
 
 <style lang="scss" scoped>
 
 *{
   font-family: 'Roboto', 'Times New Roman', Times, serif;
-  
+  font-size: 12px;
   ::-webkit-scrollbar{
     width: 8px;
   }
