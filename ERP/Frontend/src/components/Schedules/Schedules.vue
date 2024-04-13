@@ -6,16 +6,17 @@
             </div>
         </div>
     </div>
-
+    <AddForm :openProps="this.openModalAdd" @closeAdd="closeAdd()"/>
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import AddForm from './AddForm.vue';
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 export default{
     components: {
-        FullCalendar // make the <FullCalendar> tag available
+        FullCalendar, AddForm // make the <FullCalendar> tag available
     },
     data() {
         return {
@@ -55,7 +56,7 @@ export default{
                     add: {
                         text: '+',
                         click: () =>{
-                            var dateStStr = prompt('Insira uma data de inicio no formato: YYYY-MM-DD');
+                            /*var dateStStr = prompt('Insira uma data de inicio no formato: YYYY-MM-DD');
                             var dateFinStr = prompt('Insira uma data de fim no formato: YYYY-MM-DD');
                             var titleStr = prompt('Titulo: ');
                             var hourStr = prompt('Horas: THH:MM:SS');
@@ -72,7 +73,8 @@ export default{
                                 alert('Great. Now, update your database...');
                             } else {
                                 alert('Invalid date.');
-                            }
+                            }*/
+                            this.openAdd();
                         }
                     }
                 },
@@ -109,12 +111,19 @@ export default{
                     }
                 ]
 
-            }
+            },
+            openModalAdd: false
         }
     },
     methods:{
         teste(){
             console.log(testado);
+        },
+        closeAdd(){
+            this.openModalAdd=false
+        },
+        openAdd(){
+            this.openModalAdd=true
         }
     }
 }

@@ -58,7 +58,7 @@ export default{
     display: flex;
     justify-content: space-between;  
     justify-content: end;
-    height: 30px;
+    
 }
 button{
     height: 100%;
