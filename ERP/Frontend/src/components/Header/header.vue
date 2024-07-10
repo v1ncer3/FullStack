@@ -41,9 +41,9 @@ export default{
                 <button class="menuButton">Agenda</button>
             </router-link>
             <router-link to="/Settings">
-                <button class="menuButton" title="Configurações"><i class="fa fa-gear" aria-hidden="true"></i></button>
+                <button class="menuButton" title="Configurações"><i class="fa fa-gear white" aria-hidden="true"></i></button>
             </router-link>
-            <button class="menuButton" v-on:click="this.removeAutologin" title="Sair"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+            <button class="menuButton" v-on:click="this.removeAutologin" title="Sair"><i class="fa fa-sign-out white" aria-hidden="true"></i></button>
         </header>
     </nav>
 </template>

@@ -8,27 +8,33 @@ export async function SignIn(request, response){
             let logged = await Logar( user, password, autologin );
             let { message, token, code, id } = logged;
             if(logged.success){
-                response.status(code).json({'message': message, 'token': token, 'id': id});
+                return response.status(code).json({'message': message, 'token': token, 'id': id});
             }else{
-                response.status(code).json(message);
+                return response.status(code).json(message);
             }
         }else{
-            response.status(400).json('Usuário e/ou senha não informados.');
+            return response.status(400).json('Usuário e/ou senha não informados.');
         }
     }catch(error){
-        response.status(403).json({"message": 'Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde.', "error": error});
+        const { code } = error;
+        if(code == 'ECONNREFUSED'){
+            return response.status(500).json({success: false, "message": `Não foi possível conectar ao banco de dados. Entre em contato com o provedor`});
+        }
+        return response.status(403).json({"message": 'Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde.'});
     }
 }
 
 export async function SignInWithAuthUser(request, response){
     try{
         let user = await LogarWithTokenAutoLogin();
-        response.status(200).json({user: user});
-        
-        
+        response.status(200).json({user: user}); 
     }catch(error){
-        const msg = error.message;
-        response.status(403).json({success: false, "message": `Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde. ´${msg}` , "error": error});
+        
+        const { code } = error;
+        if(code == 'ECONNREFUSED'){
+            return response.status(500).json({success: false, "message": `Não foi possível conectar ao banco de dados. Entre em contato com o provedor`});
+        }
+        return response.status(403).json({success: false, "message": `Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde.`});
     }
 }
 
@@ -37,10 +43,13 @@ export async function updateNotAutoLogin(request, response){
         const { options } = request.body;
         const { idUser } = options;
         await updateAutoLoginToNot(idUser);
-        response.status(200).json({success: true, message: 'Atualizado com sucesso'});
+        return response.status(200).json({success: true, message: 'Atualizado com sucesso'});
     }catch(error){
-        const msg = error.message;
-        response.status(403).json({success: false, "message": `Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde. ´${msg}` , "error": error});
+        const { code } = error;
+        if(code == 'ECONNREFUSED'){
+            return response.status(500).json({success: false, "message": `Não foi possível conectar ao banco de dados. Entre em contato com o provedor`});
+        }
+        return response.status(403).json({success: false, "message": `Ocorreram erros no servidor. Contate o admin e/ou tente novamente mais tarde.`});
     }
 }
 

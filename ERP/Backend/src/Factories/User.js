@@ -76,10 +76,8 @@ export class User {
     async checkLoginFindOneName(){
         let { rows } = await this.getUser();
         if(rows.length > 0){
-            //criar
-            //const salt = await bcrypt.genSalt(12);
-            // const passwordHash = await bcrypt.hash(password, salt)
-            //comparar
+            // criar ->const salt = await bcrypt.genSalt(12);
+            // comparar-> const passwordHash = await bcrypt.hash(password, salt)
             const checkPassoword = await this.checkPasswordHash(this.getPassword(), rows[0]['password']);
             if(checkPassoword){
                 let { rows } = await this.getUser();

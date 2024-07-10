@@ -1,0 +1,149 @@
+delimitar campos no banco de dados
+criar relacionamento das tabelas
+
+-------------------------------------------------------------------------------
+estoque
+
+    front
+        Telas:
+            Produtos:
+                Lista com os produtos cadastrados -> paginação para trazer os itens? (depois); botão de pesquisa para buscar um item? Sim
+                Botão que abre o modal com os campos para cadastrar um novo produto e atualiza a tela;
+            Lançamento de estoque:    
+                Lista com os lançamentos de estoque - entradas e saídas;
+                Botão para deletar o estoque * cada linha;
+                Botão que abre o modal com os campos para lançar um novo estoque * cada linha;
+
+    caso de teste
+                cheguei com o produto
+                cerveja
+                vou cadastrar no sistema o produto
+                check
+
+                vou adicionar um estoque a cerveja
+        entrada        10 qnt, 12R$
+                posso deletar o estoque lançado, pois não existe saídas
+                estoque atualizado
+        saida        vendi 3 cervejas em uma pelada
+                3 qnt * 12R$
+
+                atualizar o estoque => 7 qnt, 12R$
+                check
+        entrada        lancei mais um estoque -> 23 qnt, 13R$
+                valor unitario atualizado: 13R$
+
+                atualiza estoque -> 30 qnt, 13R$    
+        saida        vendi 10 cervejas em uma pelada
+                10 qnt * 12R$
+
+                atualiza estoque -> 20 qnt, 13R$
+                
+                saida        vendi 14 cervejas em uma pelada
+        saida        14 qnt * 12R$
+
+                atualiza estoque -> 6 qnt, 13R$
+                deletando o estoque da linha 33
+
+                Não posso, pois ficaria com -17 no estoque
+
+
+    BACK
+        class produto
+        class estoque
+        class movimentação_estoque
+
+
+
+    DB
+    produto
+        photo - varchar(3000) -> salvar apenas o caminho do arquivo, utilizar o conceito de fileserver
+        codigo - pk  - varchar(10)
+        nome - varchar(25)
+        descrição - varchar(25)
+        unidade de consumo (kg, g, T) - varchar(5)
+        valor unitario - float
+        estoque minimo - float
+        estoque maximo - float
+        ativo - varchar(1) - boolean
+
+    estoque
+        codigo - pk - varchar(10)
+        codigo produto - fk - varchar(10)
+        quantidade movimentada - float
+        valor total - float
+        data ultima atualização - (yyyy-mm-dd)
+
+    movimentacao_estoque
+        codigo - pk - varchar(10) 
+        codigo estoque - fk - varchar(10)
+        codigo produto - fk - varchar(10)
+        quantidade movimentada - float
+        valor total - float
+        entrada (estoque) - boolean
+        data movimentação - (yyyy-mm-dd)
+
+
+
+
+    -- adicionar
+    somar a quantidade (sempre números positivos) movimentada ao estoque existente
+
+    -- delete
+    novo produto            -> 0001, cerveja brahma, 600ml, 1, 100
+    estoque       -> 0001 pk, 0001 fk-produto,   12.00, 12.00,  144.00, 1, 2024-01-01 -->****
+                            deletar essa linha, preciso percorrer todas as outras para baixo pelo 
+                            select * from movimentaestoque where fk-produto = :fkproduto and data >= :data,
+                            percorrer o loop somando/subtraindo as qnt e caso der uma soma negativa, barrar a operação. PAREI AQUI
+    estoque       -> 0002 pk, 0001 fk-produto,   10.00, 12.00,  120.00, 1, 2024-01-05
+
+    --balanço                 -> 0001 pk, 0001 fk-produto,   10.00, 12.00,  0.00
+
+    estoque       -> 0003 pk, 0001 fk-produto,   12.00, 12.00,  12.00, 0, 2024-01-06
+
+    --balanço                 -> 0001 pk, 0001 fk-produto,   -2.00, 12.00,  -24.00
+
+    estoque       -> 0004 pk, 0001 fk-produto,   07.00, 12.00,  12.00, 0, 2024-01-06
+
+    estoque       -> 0005 pk, 0001 fk-produto,   01.00, 12.00,  94.00, 0, 2024-01-06
+    estoque       -> 0006 pk, 0001 fk-produto,   02.00, 12.00,  94.00, 0, 2024-01-06
+
+    --balanço                 -> 0001 pk, 0001 fk-produto,   0.00, 12.00,  0.00
+-------------------------------------------------------------------------------
+comandas
+    mesas
+        coletivas
+        individuais
+    individuais
+
+
+    comandas
+        lista de produtos associados -> paginação para trazer os itens? (depois); botão de pesquisa para buscar um item? Sim;
+            imagem
+            nome
+            quantidade
+                remover -> *operação de entrada, com movimentacao de estoque (adicionando um item).
+                incrementar -> *operações de saída, com movimentacao de estoque (retirando um item).
+                criando parametro de devolução
+                *atualizar lista com novas informações do estoque
+
+                tabelas intermediarias, realizando um select no estoque e percorrendo todas as comandas abertas para validar se é possível dar saída no estoque
+
+
+            valor
+            desconto
+            deletar - imagem de lixeira
+        Adicionar produto
+
+
+comandas
+    codigo varchar(5)
+    nome varchar(25)
+    data date
+    aberta varchar(1)
+
+itemComanda
+    codigo comanda fk - varchar(5)
+    codigo produto fk - varchar(10)
+    quantidade - float
+    valor - float
+-------------------------------------------------------------------------------

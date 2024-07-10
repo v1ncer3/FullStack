@@ -126,7 +126,7 @@ export default {
                         "closeButton": false
                     });
                 }else if(typeof(e.response.data)=='object'){
-                    if(e.response.data.error.sql){
+                    if(e.response.data.hasOwnProperty('error') && e.response.data.error.sql){
                         toast(e.response.data.message, {
                             "theme": "colored",
                             "type": "error",
@@ -141,7 +141,7 @@ export default {
                             "dangerouslyHTMLString": true,
                             "closeButton": false
                         });
-                    }else if(e.response.data.message && typeof(e.response.data.message) == 'string'){
+                    }else if(e.response.data.hasOwnProperty('message') && typeof(e.response.data.message) == 'string'){
                         toast(`Error: ${e.response.data.message}`, {
                             "theme": "colored",
                             "type": "error",

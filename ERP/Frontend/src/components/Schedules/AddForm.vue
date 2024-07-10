@@ -38,60 +38,7 @@
     emits:['closeAdd']
   };
 
-  /*<form @submit.prevent="submitForm">
-          <div class="form-group">
-            <label  for="title">Título:</label>
-            <input type="text" id="title" v-model="title" required>
-          </div>
-          <div class="form-group">
-            <label  for="start-date">Data Inicial:</label>
-            <input type="datetime-local" id="start-date" v-model="startDate" required>
-          </div>
-          <div class="form-group">
-            <label  for="end-date">Data Final:</label>
-            <input type="datetime-local" id="end-date" v-model="endDate" required>
-          </div>
-          <div class="form-group">
-            <label  for="all-day">Dia Completo:</label>
-            <input type="checkbox" id="all-day" v-model="allDay">
-          </div>
-          <div class="form-group">
-            <label  for="color">Cor:</label>
-            <input type="color" id="color" v-model="color">
-          </div>
-          <div class="form-group">
-            <label  for="text-color">Cor do Texto:</label>
-            <input type="color" id="text-color" v-model="textColor">
-          </div>
-          <button type="submit">Salvar</button>
-        </form> 
-        
-        .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: start;
-    padding: 3px;
-  }
   
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-
-  input{
-    margin: 0px 0px 0px 10px;
-  }
-  
-  #title{
-    width:auto;
-  }
-        
-        */
   </script>
   
 <style>
